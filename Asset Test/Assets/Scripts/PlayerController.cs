@@ -6,12 +6,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] public float rotationSpeed = 100.0f;
     public float movementSpeed = 5.0f;
     
-    public GameObject projectilePrefab;
     private PlayerInput inputActions;
     private Vector2 moveInput;
     private float rotateInput; // Changed to a float to represent left/right rotation
-    [SerializeField] public GameObject particleEffectPrefab; // Reference to the Particle System Prefab
-    [SerializeField] public AudioSource firesfx;
 
     private void Awake()
     {
