@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    private float rotationSpeed = 30.0f;
+    private float rotationSpeed = 40.0f;
     private float movementSpeed = 10.0f;
     private float handbrakeDrag = 10f; // Increased drag for handbrake effect
     private float normalDrag = 0.1f; // Normal driving drag
@@ -16,6 +16,15 @@ public class PlayerController : MonoBehaviour
     private float rotateInput;
     private bool handbrakeActive = false; // Handbrake flag
     private Vector3 lastDirectionBeforeHandbrake;
+    //boosting variables
+    private bool isBoosting = false;
+    private float boostAmount = 30f;
+    private float boostDuration = 2f; // Duration of the boost effect
+    private float boostCooldown = 5f; // Time before another boost can be activated
+    private float boostTimer = 0f; // Tracks the duration of the current boost
+    private float driftTime = 0f; // Tracks how long the player has been drifting
+    private float maxBoost = 100f; // Maximum boost that can be accumulated
+
 
     private void Awake()
     {
@@ -59,8 +68,16 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
+            driftTime += Time.fixedDeltaTime; // Accumulate drift time
+
             HandleHandbrake();
         }
+        // Handle boost if active
+        if (isBoosting)
+        {
+            ApplyBoost();
+        }
+
     }
 
 private void HandleMovement()
@@ -88,11 +105,11 @@ private void HandleHandbrake()
 
     // Calculate the current direction based on input
     Quaternion currentRotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0);
-    Vector3 newDirectionInput = new Vector3(moveInput.x, 0, 37);
+    Vector3 newDirectionInput = new Vector3(moveInput.x, 0, 10);
     Vector3 currentDirection = (currentRotation * newDirectionInput).normalized;
 
     // Blend the last direction before handbrake and the current direction
-    Vector3 blendedDirection = Vector3.Lerp(lastDirectionBeforeHandbrake.normalized, currentDirection, 0.5f);
+    Vector3 blendedDirection = Vector3.Lerp(lastDirectionBeforeHandbrake.normalized, currentDirection, 0.4f);
 
     // Apply movement speed
     Vector3 movement = blendedDirection * movementSpeed;
@@ -103,15 +120,55 @@ private void HandleHandbrake()
 
 
     private void ToggleHandbrake(bool active)
+{
+    handbrakeActive = active;
+    if (active)
     {
-        handbrakeActive = active;
-        rb.drag = active ? handbrakeDrag : normalDrag;
-        rb.angularDrag = active ? handbrakeAngularDrag : normalAngularDrag;
-
-        if (!active)
-        {
-            // Adjust the car's velocity direction when handbrake is released
-            rb.velocity = transform.forward * rb.velocity.magnitude;
-        }
+        // Reset drift time when handbrake is activated
+        driftTime = 0f;
     }
+    else
+    {
+        // Calculate boost amount based on drift time when handbrake is released
+        boostAmount += driftTime; // Adjust this calculation as needed
+        boostAmount = Mathf.Min(boostAmount, maxBoost); // Cap the boost amount
+
+        // Reset drift time
+        driftTime = 0f;
+
+        // Start boosting if there's accumulated boost
+        if (boostAmount > 0)
+        {
+            isBoosting = true;
+            boostTimer = 0f; // Reset the boost timer
+        }
+
+        // Adjust the car's velocity direction when handbrake is released
+        rb.velocity = transform.forward * rb.velocity.magnitude;
+    }
+
+    // Update Rigidbody drag values
+    rb.drag = active ? handbrakeDrag : normalDrag;
+    rb.angularDrag = active ? handbrakeAngularDrag : normalAngularDrag;
+}
+private void ApplyBoost()
+{
+    if (boostAmount > 0 && boostTimer < boostDuration)
+    {
+        // Apply force in the forward direction
+        rb.AddForce(transform.forward * boostAmount, ForceMode.Impulse);
+
+        // Update boost timer
+        boostTimer += Time.fixedDeltaTime;
+    }
+    else
+    {
+        // Reset boost state when duration is over or boost is depleted
+        isBoosting = false;
+        boostTimer = 0f;
+        boostAmount = 0f; // Optionally reset boost amount here or on specific conditions
+    }
+}
+
+    
 }
