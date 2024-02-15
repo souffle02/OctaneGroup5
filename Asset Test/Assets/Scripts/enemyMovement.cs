@@ -2,37 +2,52 @@ using UnityEngine;
 
 public class CarFollowPlayer : MonoBehaviour
 {
-    public float speed = 5f; // Speed of the car.
-    public float minimumDistance = 5f; // Minimum distance to maintain from player.
+    public float baseSpeed = 5f; // Base speed of the car.
+    public float baseMinimumDistance = 5f; // Base minimum distance to maintain from player.
     private Transform playerTransform; // To store the player's transform.
+    private Rigidbody rb; // Reference to the car's Rigidbody component.
+    private float timeCounter = 0f; // Counter to track the elapsed time.
 
     void Start()
     {
         // Find the player object by tag and store its transform.
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+
+        // Get the Rigidbody component from this GameObject.
+        rb = GetComponent<Rigidbody>();
+        if (rb == null)
+        {
+            Debug.LogError("Rigidbody component missing from this GameObject");
+        }
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        // Check if playerTransform is not null to avoid errors if the player is not found.
-        if(playerTransform != null)
-        {
-            // Calculate the direction to the player.
-            Vector3 directionToPlayer = playerTransform.position - transform.position;
-            directionToPlayer.y = 0; // Ignore the y-axis to keep the movement horizontal.
+        // Use FixedUpdate for physics-based updates.
+        // Update the time counter based on fixed time to keep consistent with physics updates.
+        timeCounter += Time.fixedDeltaTime;
 
-            // Calculate the distance to the player.
+        // Oscillate the minimum distance using a sine wave.
+        float minimumDistance = baseMinimumDistance + Mathf.Sin(timeCounter / 15 * Mathf.PI) * baseMinimumDistance;
+
+        if (playerTransform != null)
+        {
+            Vector3 directionToPlayer = playerTransform.position - transform.position;
+            directionToPlayer.y = 0; // Keep the movement horizontal.
+
             float distanceToPlayer = directionToPlayer.magnitude;
 
-            // Check if the car is further away than the minimum distance.
-            if(distanceToPlayer > minimumDistance)
+            if (distanceToPlayer > minimumDistance)
             {
-                // Normalize the direction vector, and move the car towards the player.
                 Vector3 moveDirection = directionToPlayer.normalized;
-                transform.position += moveDirection * speed * Time.deltaTime;
+                Vector3 newPosition = rb.position + moveDirection * baseSpeed * Time.fixedDeltaTime;
 
-                // Optionally, make the car face the player.
-                transform.LookAt(new Vector3(playerTransform.position.x, transform.position.y, playerTransform.position.z));
+                // Use Rigidbody.MovePosition for smooth physics-based movement.
+                rb.MovePosition(newPosition);
+
+                // Face the player with a smooth rotation.
+                Quaternion targetRotation = Quaternion.LookRotation(new Vector3(playerTransform.position.x, rb.position.y, playerTransform.position.z) - rb.position);
+                rb.MoveRotation(Quaternion.RotateTowards(rb.rotation, targetRotation, baseSpeed * Time.fixedDeltaTime));
             }
         }
     }
