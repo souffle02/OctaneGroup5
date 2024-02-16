@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    public float lives = 3; // Starting lives for player
     private float rotationSpeed = 40.0f;
     private float movementSpeed = 10.0f;
     private float handbrakeDrag = 10f; // Increased drag for handbrake effect
@@ -170,5 +171,26 @@ private void ApplyBoost()
     }
 }
 
-    
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.collider.CompareTag("Obstacle"))
+        {
+            LoseLife();
+            Destroy(collision.gameObject);
+        }
+    }
+
+    private void LoseLife()
+    {
+        lives -= 1; // Subtract one life
+        Debug.Log("Life lost! Remaining lives: " + lives);
+
+        if (lives <= 0)
+        {
+            Debug.Log("Game Over!");
+            // Handle game over logic here
+        }
+    }
+
+
 }
