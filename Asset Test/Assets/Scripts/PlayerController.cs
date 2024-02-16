@@ -80,7 +80,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
-private void HandleMovement()
+    private void HandleMovement()
     {
         Vector3 moveDirection = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0) * new Vector3(moveInput.x, 0, 40);
         Vector3 movement = moveDirection.normalized * movementSpeed;
@@ -94,29 +94,29 @@ private void HandleMovement()
         rb.MoveRotation(rb.rotation * deltaRotation);
     }
 
-private void HandleHandbrake()
-{
-    if (Mathf.Abs(rotateInput) > 0)
+    private void HandleHandbrake()
     {
-        float rotationAmount = rotateInput * (rotationSpeed * 3 /2) * Time.fixedDeltaTime;
-        Quaternion turn = Quaternion.Euler(0f, rotationAmount, 0f);
-        rb.MoveRotation(rb.rotation * turn);
+        if (Mathf.Abs(rotateInput) > 0)
+        {
+            float rotationAmount = rotateInput * (rotationSpeed * 3 /2) * Time.fixedDeltaTime;
+            Quaternion turn = Quaternion.Euler(0f, rotationAmount, 0f);
+            rb.MoveRotation(rb.rotation * turn);
+        }
+
+        // Calculate the current direction based on input
+        Quaternion currentRotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0);
+        Vector3 newDirectionInput = new Vector3(moveInput.x, 0, 10);
+        Vector3 currentDirection = (currentRotation * newDirectionInput).normalized;
+
+        // Blend the last direction before handbrake and the current direction
+        Vector3 blendedDirection = Vector3.Lerp(lastDirectionBeforeHandbrake.normalized, currentDirection, 0.4f);
+
+        // Apply movement speed
+        Vector3 movement = blendedDirection * movementSpeed;
+
+        // Move the rigidbody
+        rb.MovePosition(rb.position + movement * Time.fixedDeltaTime);
     }
-
-    // Calculate the current direction based on input
-    Quaternion currentRotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0);
-    Vector3 newDirectionInput = new Vector3(moveInput.x, 0, 10);
-    Vector3 currentDirection = (currentRotation * newDirectionInput).normalized;
-
-    // Blend the last direction before handbrake and the current direction
-    Vector3 blendedDirection = Vector3.Lerp(lastDirectionBeforeHandbrake.normalized, currentDirection, 0.4f);
-
-    // Apply movement speed
-    Vector3 movement = blendedDirection * movementSpeed;
-
-    // Move the rigidbody
-    rb.MovePosition(rb.position + movement * Time.fixedDeltaTime);
-}
 
 
     private void ToggleHandbrake(bool active)
@@ -151,24 +151,30 @@ private void HandleHandbrake()
     rb.drag = active ? handbrakeDrag : normalDrag;
     rb.angularDrag = active ? handbrakeAngularDrag : normalAngularDrag;
 }
-private void ApplyBoost()
-{
-    if (boostAmount > 0 && boostTimer < boostDuration)
+    private void ApplyBoost()
     {
-        // Apply force in the forward direction
-        rb.AddForce(transform.forward * boostAmount, ForceMode.Impulse);
+        if (boostAmount > 0 && boostTimer < boostDuration)
+        {
+            // Apply force in the forward direction
+            rb.AddForce(transform.forward * boostAmount, ForceMode.Impulse);
 
-        // Update boost timer
-        boostTimer += Time.fixedDeltaTime;
+            // Update boost timer
+            boostTimer += Time.fixedDeltaTime;
+        }
+        else
+        {
+            // Reset boost state when duration is over or boost is depleted
+            isBoosting = false;
+            boostTimer = 0f;
+            boostAmount = 0f; // Optionally reset boost amount here or on specific conditions
+        }
     }
-    else
+
+    private void OnTriggerEnter(Collider other)
     {
-        // Reset boost state when duration is over or boost is depleted
-        isBoosting = false;
-        boostTimer = 0f;
-        boostAmount = 0f; // Optionally reset boost amount here or on specific conditions
+        if (other.CompareTag("Finish"))
+        {
+            GameManager.Instance.GameOver();
+        }
     }
-}
-
-    
 }
