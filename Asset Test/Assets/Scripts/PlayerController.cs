@@ -178,7 +178,7 @@ public class PlayerController : MonoBehaviour
             GameManager.Instance.GameOver();
         }
     }
-}
+
 
     private void OnCollisionEnter(Collision collision)
     {
