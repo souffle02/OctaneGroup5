@@ -1,8 +1,10 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] private TMP_Text progressText;
     public float lives = 3; // Starting lives for player
     private float rotationSpeed = 40.0f;
     private float movementSpeed = 10.0f;
@@ -26,6 +28,10 @@ public class PlayerController : MonoBehaviour
     private float driftTime = 0f; // Tracks how long the player has been drifting
     private float maxBoost = 100f; // Maximum boost that can be accumulated
 
+    private int totalProgressCheckpoints; // Total number of progress checkpoints
+    private int currentProgress; // Current progress count
+    private int currentPercentage; // Current progress percentage
+
 
     private void Awake()
     {
@@ -43,6 +49,11 @@ public class PlayerController : MonoBehaviour
         // Listen for the "Drift" action
         inputActions.Player.Drift.performed += ctx => ToggleHandbrake(true);
         inputActions.Player.Drift.canceled += ctx => ToggleHandbrake(false);
+
+        // Used for progress counter
+        GameObject[] checkpoints = GameObject.FindGameObjectsWithTag("Progress");
+        totalProgressCheckpoints = checkpoints.Length;
+        Debug.Log(totalProgressCheckpoints);
     }
 
     private void OnEnable()
@@ -177,6 +188,12 @@ public class PlayerController : MonoBehaviour
         {
             GameManager.Instance.GameOver();
         }
+        if (other.CompareTag("Progress"))
+        {
+            Debug.Log("Calculating stuff");
+            currentProgress++;
+            CalculatePercentage();
+        }
     }
 }
 
@@ -199,6 +216,17 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Game Over!");
             // Handle game over logic here
         }
+    }
+
+    private void CalculatePercentage()
+    {
+        // Calculate the current progress percentage
+        currentPercentage = Mathf.Clamp((int)(((float)currentProgress / totalProgressCheckpoints) * 100f), 0, 100);
+
+        progressText.SetText(currentPercentage.ToString() + "%");
+
+        // Display the current percentage value
+        // Debug.Log("Current Progress Percentage: " + currentPercentage.ToString("F2") + "%");
     }
 
 
