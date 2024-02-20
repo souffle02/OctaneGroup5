@@ -32,6 +32,8 @@ public class PlayerController : MonoBehaviour
     private int currentProgress; // Current progress count
     private int currentPercentage; // Current progress percentage
 
+    public GameObject rocketLauncherPrefab; // Rocket Launcher
+    private bool canShoot = false; // If has rocket launcher powerup
 
     private void Awake()
     {
@@ -54,6 +56,8 @@ public class PlayerController : MonoBehaviour
         GameObject[] checkpoints = GameObject.FindGameObjectsWithTag("Progress");
         totalProgressCheckpoints = checkpoints.Length;
         Debug.Log(totalProgressCheckpoints);
+
+        inputActions.Player.Shoot.performed += ctx => TryShoot();
     }
 
     private void OnEnable()
@@ -229,5 +233,25 @@ public class PlayerController : MonoBehaviour
         // Debug.Log("Current Progress Percentage: " + currentPercentage.ToString("F2") + "%");
     }
 
+    public void EnableShooting()
+    {
+        canShoot = true; // Player can now shoot
+    }
 
+    private void TryShoot()
+    {
+        print("no power up");
+        if (canShoot)
+        {
+            ShootProjectile();
+            print("shot");
+        }
+    }
+
+    private void ShootProjectile()
+    {
+        Vector3 spawnPosition = transform.position + transform.forward * 2f; // Adjust '2f' as needed to position above the car
+        Instantiate(rocketLauncherPrefab, spawnPosition, transform.rotation);
+        canShoot = false;
+    }
 }
