@@ -23,10 +23,8 @@ public class Rocket : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        print("hit");
         if (other.CompareTag("Obstacle"))
         {
-            print("called");
             Destroy(other.gameObject); // Destroy the obstacle
             Destroy(gameObject); // Destroy the projectile
         }
