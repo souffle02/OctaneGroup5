@@ -1,8 +1,10 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] private TMP_Text progressText;
     public float lives = 3; // Starting lives for player
     private float rotationSpeed = 40.0f;
     private float movementSpeed = 10.0f;
@@ -26,6 +28,10 @@ public class PlayerController : MonoBehaviour
     private float driftTime = 0f; // Tracks how long the player has been drifting
     private float maxBoost = 100f; // Maximum boost that can be accumulated
 
+    private int totalProgressCheckpoints; // Total number of progress checkpoints
+    private int currentProgress; // Current progress count
+    private int currentPercentage; // Current progress percentage
+
 
     private void Awake()
     {
@@ -43,6 +49,11 @@ public class PlayerController : MonoBehaviour
         // Listen for the "Drift" action
         inputActions.Player.Drift.performed += ctx => ToggleHandbrake(true);
         inputActions.Player.Drift.canceled += ctx => ToggleHandbrake(false);
+
+        // Used for progress counter
+        GameObject[] checkpoints = GameObject.FindGameObjectsWithTag("Progress");
+        totalProgressCheckpoints = checkpoints.Length;
+        Debug.Log(totalProgressCheckpoints);
     }
 
     private void OnEnable()
@@ -81,7 +92,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
-private void HandleMovement()
+    private void HandleMovement()
     {
         Vector3 moveDirection = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0) * new Vector3(moveInput.x, 0, 40);
         Vector3 movement = moveDirection.normalized * movementSpeed;
@@ -95,29 +106,29 @@ private void HandleMovement()
         rb.MoveRotation(rb.rotation * deltaRotation);
     }
 
-private void HandleHandbrake()
-{
-    if (Mathf.Abs(rotateInput) > 0)
+    private void HandleHandbrake()
     {
-        float rotationAmount = rotateInput * (rotationSpeed * 3 /2) * Time.fixedDeltaTime;
-        Quaternion turn = Quaternion.Euler(0f, rotationAmount, 0f);
-        rb.MoveRotation(rb.rotation * turn);
+        if (Mathf.Abs(rotateInput) > 0)
+        {
+            float rotationAmount = rotateInput * (rotationSpeed * 3 /2) * Time.fixedDeltaTime;
+            Quaternion turn = Quaternion.Euler(0f, rotationAmount, 0f);
+            rb.MoveRotation(rb.rotation * turn);
+        }
+
+        // Calculate the current direction based on input
+        Quaternion currentRotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0);
+        Vector3 newDirectionInput = new Vector3(moveInput.x, 0, 10);
+        Vector3 currentDirection = (currentRotation * newDirectionInput).normalized;
+
+        // Blend the last direction before handbrake and the current direction
+        Vector3 blendedDirection = Vector3.Lerp(lastDirectionBeforeHandbrake.normalized, currentDirection, 0.4f);
+
+        // Apply movement speed
+        Vector3 movement = blendedDirection * movementSpeed;
+
+        // Move the rigidbody
+        rb.MovePosition(rb.position + movement * Time.fixedDeltaTime);
     }
-
-    // Calculate the current direction based on input
-    Quaternion currentRotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0);
-    Vector3 newDirectionInput = new Vector3(moveInput.x, 0, 10);
-    Vector3 currentDirection = (currentRotation * newDirectionInput).normalized;
-
-    // Blend the last direction before handbrake and the current direction
-    Vector3 blendedDirection = Vector3.Lerp(lastDirectionBeforeHandbrake.normalized, currentDirection, 0.4f);
-
-    // Apply movement speed
-    Vector3 movement = blendedDirection * movementSpeed;
-
-    // Move the rigidbody
-    rb.MovePosition(rb.position + movement * Time.fixedDeltaTime);
-}
 
 
     private void ToggleHandbrake(bool active)
@@ -152,24 +163,39 @@ private void HandleHandbrake()
     rb.drag = active ? handbrakeDrag : normalDrag;
     rb.angularDrag = active ? handbrakeAngularDrag : normalAngularDrag;
 }
-private void ApplyBoost()
-{
-    if (boostAmount > 0 && boostTimer < boostDuration)
+    private void ApplyBoost()
     {
-        // Apply force in the forward direction
-        rb.AddForce(transform.forward * boostAmount, ForceMode.Impulse);
+        if (boostAmount > 0 && boostTimer < boostDuration)
+        {
+            // Apply force in the forward direction
+            rb.AddForce(transform.forward * boostAmount, ForceMode.Impulse);
 
-        // Update boost timer
-        boostTimer += Time.fixedDeltaTime;
+            // Update boost timer
+            boostTimer += Time.fixedDeltaTime;
+        }
+        else
+        {
+            // Reset boost state when duration is over or boost is depleted
+            isBoosting = false;
+            boostTimer = 0f;
+            boostAmount = 0f; // Optionally reset boost amount here or on specific conditions
+        }
     }
-    else
+
+    private void OnTriggerEnter(Collider other)
     {
-        // Reset boost state when duration is over or boost is depleted
-        isBoosting = false;
-        boostTimer = 0f;
-        boostAmount = 0f; // Optionally reset boost amount here or on specific conditions
+        if (other.CompareTag("Finish"))
+        {
+            GameManager.Instance.GameOver();
+        }
+        if (other.CompareTag("Progress"))
+        {
+            Debug.Log("Calculating stuff");
+            currentProgress++;
+            CalculatePercentage();
+        }
     }
-}
+
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -190,6 +216,17 @@ private void ApplyBoost()
             Debug.Log("Game Over!");
             // Handle game over logic here
         }
+    }
+
+    private void CalculatePercentage()
+    {
+        // Calculate the current progress percentage
+        currentPercentage = Mathf.Clamp((int)(((float)currentProgress / totalProgressCheckpoints) * 100f), 0, 100);
+
+        progressText.SetText(currentPercentage.ToString() + "%");
+
+        // Display the current percentage value
+        // Debug.Log("Current Progress Percentage: " + currentPercentage.ToString("F2") + "%");
     }
 
 
