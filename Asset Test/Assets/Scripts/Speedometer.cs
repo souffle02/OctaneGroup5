@@ -14,6 +14,10 @@ public class Speedometer : MonoBehaviour
     public float minSpeedArrowAngle;
     public float maxSpeedArrowAngle;
 
+    // private Vector3 trackVelocity;
+    // private Vector3 lastPos;
+
+
     [Header("UI")]
     public TMP_Text speedLabel; // The label that displays the speed;
     public RectTransform arrow; // The arrow in the speedometer
@@ -25,6 +29,7 @@ public class Speedometer : MonoBehaviour
         // ** The speed must be clamped by the car controller **
         // TODO: something is wrong with the speed
         // Debug.Log(target.velocity.magnitude);
+        // Debug.Log(target.velocity);
         speed = target.velocity.magnitude * 3.6f;
 
         if (speedLabel != null)
