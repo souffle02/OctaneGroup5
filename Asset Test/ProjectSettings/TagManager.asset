@@ -5,7 +5,11 @@ TagManager:
   serializedVersion: 2
   tags:
   - Obstacle
-  - Progress
+  - CoinMultiplier
+  - Invincibility
+  - RepairKit
+  - Timewarp
+  - RocketLauncher
   layers:
   - Default
   - TransparentFX
