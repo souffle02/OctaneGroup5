@@ -1,8 +1,11 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] private TMP_Text progressText;
+    public float lives = 3; // Starting lives for player
     private float rotationSpeed = 40.0f;
     private float movementSpeed = 10.0f;
     private float handbrakeDrag = 10f; // Increased drag for handbrake effect
@@ -25,6 +28,12 @@ public class PlayerController : MonoBehaviour
     private float driftTime = 0f; // Tracks how long the player has been drifting
     private float maxBoost = 100f; // Maximum boost that can be accumulated
 
+    private int totalProgressCheckpoints; // Total number of progress checkpoints
+    private int currentProgress; // Current progress count
+    private int currentPercentage; // Current progress percentage
+
+    public GameObject rocketLauncherPrefab; // Rocket Launcher
+    private bool canShoot = false; // If has rocket launcher powerup
 
     private void Awake()
     {
@@ -42,6 +51,13 @@ public class PlayerController : MonoBehaviour
         // Listen for the "Drift" action
         inputActions.Player.Drift.performed += ctx => ToggleHandbrake(true);
         inputActions.Player.Drift.canceled += ctx => ToggleHandbrake(false);
+
+        // Used for progress counter
+        GameObject[] checkpoints = GameObject.FindGameObjectsWithTag("Progress");
+        totalProgressCheckpoints = checkpoints.Length;
+        Debug.Log(totalProgressCheckpoints);
+
+        inputActions.Player.Shoot.performed += ctx => TryShoot();
     }
 
     private void OnEnable()
@@ -176,5 +192,66 @@ public class PlayerController : MonoBehaviour
         {
             GameManager.Instance.GameOver();
         }
+        if (other.CompareTag("Progress"))
+        {
+            Debug.Log("Calculating stuff");
+            currentProgress++;
+            CalculatePercentage();
+        }
+    }
+
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.collider.CompareTag("Obstacle"))
+        {
+            LoseLife();
+            Destroy(collision.gameObject);
+        }
+    }
+
+    private void LoseLife()
+    {
+        lives -= 1; // Subtract one life
+        Debug.Log("Life lost! Remaining lives: " + lives);
+
+        if (lives <= 0)
+        {
+            Debug.Log("Game Over!");
+            // Handle game over logic here
+        }
+    }
+
+    private void CalculatePercentage()
+    {
+        // Calculate the current progress percentage
+        currentPercentage = Mathf.Clamp((int)(((float)currentProgress / totalProgressCheckpoints) * 100f), 0, 100);
+
+        progressText.SetText(currentPercentage.ToString() + "%");
+
+        // Display the current percentage value
+        // Debug.Log("Current Progress Percentage: " + currentPercentage.ToString("F2") + "%");
+    }
+
+    public void EnableShooting()
+    {
+        canShoot = true; // Player can now shoot
+    }
+
+    private void TryShoot()
+    {
+        print("no power up");
+        if (canShoot)
+        {
+            ShootProjectile();
+            print("shot");
+        }
+    }
+
+    private void ShootProjectile()
+    {
+        Vector3 spawnPosition = transform.position + transform.forward * 2f; // Adjust '2f' as needed to position above the car
+        Instantiate(rocketLauncherPrefab, spawnPosition, transform.rotation);
+        canShoot = false;
     }
 }
