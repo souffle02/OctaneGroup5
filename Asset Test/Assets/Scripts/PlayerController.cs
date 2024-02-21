@@ -5,7 +5,7 @@ using TMPro;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private TMP_Text progressText;
-    public float lives = 3; // Starting lives for player
+    public static float lives = 3; // Starting lives for player
     private float rotationSpeed = 40.0f;
     private float movementSpeed = 10.0f;
     private float handbrakeDrag = 10f; // Increased drag for handbrake effect
@@ -188,9 +188,10 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log(other.tag);
         if (other.CompareTag("Finish"))
         {
-            GameManager.Instance.GameOver();
+            GameManager.Instance.LevelEnd();
         }
         if (other.CompareTag("Progress"))
         {
@@ -210,11 +211,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void LoseLife()
+    private void LoseLife() //needs to have an update for add life, disconnect from livescounterscript.fs
     {
         lives -= 1; // Subtract one life
         Debug.Log("Life lost! Remaining lives: " + lives);
-
+        LivesCounterScript.LivesInstance.UpdateLives();
         if (lives <= 0)
         {
             Debug.Log("Game Over!");
