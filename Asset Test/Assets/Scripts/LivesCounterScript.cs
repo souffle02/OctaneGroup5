@@ -6,8 +6,9 @@ using UnityEngine;
 public class LivesCounterScript : MonoBehaviour
 {
     [SerializeField] private TMP_Text livesCounter;
-    private int livesCount = 3;
+    private float livesCount = PlayerController.lives;
     private bool invincible;
+    public static LivesCounterScript LivesInstance;
 
     private void OnEnable()
     {
@@ -34,6 +35,18 @@ public class LivesCounterScript : MonoBehaviour
         livesCounter.SetText(livesCount.ToString());
         invincible = false;
     }
+    private void Awake()
+    {
+        if (LivesInstance == null)
+        {
+            LivesInstance = this;
+        }
+    }
+    public void UpdateLives()
+    {
+        livesCount = PlayerController.lives;
+        livesCounter.SetText(livesCount.ToString());
+    }
 
     private void AddLife(EventScriptManager events) // argument should be EventScript event
     {
@@ -42,7 +55,7 @@ public class LivesCounterScript : MonoBehaviour
         livesCounter.SetText(livesCount.ToString());
     }
 
-    private void SubtractLife(EventScriptManager events)
+    private void SubtractLife(EventScriptManager events) //needs to check if invincible is true
     {
         Debug.Log("Life loss event heard");
         livesCount--;
