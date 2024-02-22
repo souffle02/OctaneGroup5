@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CarFollowPlayer : MonoBehaviour
@@ -28,7 +29,7 @@ public class CarFollowPlayer : MonoBehaviour
         timeCounter += Time.fixedDeltaTime;
 
         // Oscillate the minimum distance using a sine wave.
-        float minimumDistance = baseMinimumDistance + Mathf.Sin(timeCounter / 15 * Mathf.PI) * baseMinimumDistance;
+        float minimumDistance = baseMinimumDistance + Mathf.Sin(timeCounter / 5 * Mathf.PI) * baseMinimumDistance;
 
         if (playerTransform != null)
         {
@@ -40,7 +41,7 @@ public class CarFollowPlayer : MonoBehaviour
             if (distanceToPlayer > minimumDistance)
             {
                 Vector3 moveDirection = directionToPlayer.normalized;
-                Vector3 newPosition = rb.position + moveDirection * baseSpeed * Time.fixedDeltaTime;
+                Vector3 newPosition = rb.position + moveDirection * baseSpeed  *Time.fixedDeltaTime;
 
                 // Use Rigidbody.MovePosition for smooth physics-based movement.
                 rb.MovePosition(newPosition);
@@ -48,6 +49,8 @@ public class CarFollowPlayer : MonoBehaviour
                 // Face the player with a smooth rotation.
                 Quaternion targetRotation = Quaternion.LookRotation(new Vector3(playerTransform.position.x, rb.position.y, playerTransform.position.z) - rb.position);
                 rb.MoveRotation(Quaternion.RotateTowards(rb.rotation, targetRotation, baseSpeed * Time.fixedDeltaTime));
+                
+            if  (distanceToPlayer < minimumDistance){minimumDistance += 2;}
             }
         }
     }
