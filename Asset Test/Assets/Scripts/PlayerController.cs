@@ -10,14 +10,15 @@ public class PlayerController : MonoBehaviour
     public WheelCollider frontDriverW, frontPassengerW, rearDriverW, rearPassengerW;
     public Transform frontDriverT, frontPassengerT, rearDriverT, rearPassengerT;
     private float m_steeringAngle;
-    public float maxSteerAngle = 10;
-    public float motorForce = 2000;
+    public float maxSteerAngle = 20;
+    public float motorForce = 2500;
     public float brakeForce = 100;
     private float handbrakeForce = 1500f; // Use this for handbrake effect
-    private float steeringSensitivity = 2f; // Adjust this value to find the right responsiveness.
+    private float steeringSensitivity = 1.8f; // Adjust this value to find the right responsiveness.
 
     private float currentSteerAngle = 0f;
-
+    public WheelFrictionCurve originalRearWFriction;
+    public WheelFrictionCurve driftRearWFriction;
 
     private Rigidbody rb;
     private PlayerInput inputActions;
@@ -57,6 +58,17 @@ public class PlayerController : MonoBehaviour
      // Setup rotate action listener
         inputActions.Player.Rotate.performed += ctx => m_rotateInput = ctx.ReadValue<float>();
         inputActions.Player.Rotate.canceled += ctx => m_rotateInput = 0;
+
+
+        // Setup original friction curves
+        originalRearWFriction = rearDriverW.sidewaysFriction;
+        
+        // Setup drift friction curves
+        driftRearWFriction = originalRearWFriction;
+        driftRearWFriction.stiffness = 0.5f; // Adjust this value for desired drift behavior, lower values = more drift
+
+        // Other initialization...
+
     }
 
     private void OnEnable()
@@ -151,10 +163,18 @@ public class PlayerController : MonoBehaviour
 
     private void ToggleHandbrake(bool active)
     {
-        // Reset drift time when handbrake is activated
-        handbrakeActive = active;
-        handbrakeForce = active ? brakeForce : 0f;
+    handbrakeActive = active;
     
+    if (active)
+    {
+        // Apply drift friction curves
+        ApplyDriftFriction();
+    }
+    else
+    {
+        // Revert to original friction curves
+        RevertOriginalFriction();
+    }
     }
 
 
@@ -226,6 +246,22 @@ public class PlayerController : MonoBehaviour
         Vector3 spawnPosition = transform.position + transform.forward * 2f; // Adjust '2f' as needed to position above the car
         Instantiate(rocketLauncherPrefab, spawnPosition, transform.rotation);
         canShoot = false;
+    }
+
+    private void ApplyDriftFriction()
+    {
+        rearDriverW.sidewaysFriction = driftRearWFriction;
+        rearPassengerW.sidewaysFriction = driftRearWFriction;
+        frontDriverW.sidewaysFriction = driftRearWFriction;
+        frontPassengerW.sidewaysFriction = driftRearWFriction;
+
+
+    }
+
+    private void RevertOriginalFriction()
+    {
+        rearDriverW.sidewaysFriction = originalRearWFriction;
+        rearPassengerW.sidewaysFriction = originalRearWFriction;
     }
         
 }
