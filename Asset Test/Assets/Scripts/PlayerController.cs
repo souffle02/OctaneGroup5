@@ -180,6 +180,8 @@ public class PlayerController : MonoBehaviour
         {
             LoseLife();
             Destroy(collision.gameObject);
+        } else {
+            Debug.Log("Powerup collected.");
         }
     }
 
