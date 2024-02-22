@@ -4,27 +4,27 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     public float lives = 3; // Starting lives for player
-    private float rotationSpeed = 40.0f;
-    private float movementSpeed = 10.0f;
-    private float handbrakeDrag = 10f; // Increased drag for handbrake effect
-    private float normalDrag = 0.1f; // Normal driving drag
-    private float handbrakeAngularDrag = 10f; // Angular drag for sliding
-    private float normalAngularDrag = 1f; // Normal angular drag
+
+    public WheelCollider frontDriverW, frontPassengerW, rearDriverW, rearPassengerW;
+    public Transform frontDriverT, frontPassengerT, rearDriverT, rearPassengerT;
+    private float m_steeringAngle;
+    public float maxSteerAngle = 10;
+    public float motorForce = 2000;
+    public float brakeForce = 100;
+    private float handbrakeForce = 100f; // Use this for handbrake effect
+    private float steeringSensitivity = 2f; // Adjust this value to find the right responsiveness.
+
+    private float currentSteerAngle = 0f;
+
 
     private Rigidbody rb;
     private PlayerInput inputActions;
     private Vector2 moveInput;
     private float rotateInput;
     private bool handbrakeActive = false; // Handbrake flag
-    private Vector3 lastDirectionBeforeHandbrake;
-    //boosting variables
-    private bool isBoosting = false;
-    private float boostAmount = 30f;
-    private float boostDuration = 2f; // Duration of the boost effect
-    private float boostCooldown = 5f; // Time before another boost can be activated
-    private float boostTimer = 0f; // Tracks the duration of the current boost
-    private float driftTime = 0f; // Tracks how long the player has been drifting
-    private float maxBoost = 100f; // Maximum boost that can be accumulated
+    private float m_rotateInput; // Add this to capture the rotate input
+
+    
 
 
     private void Awake()
@@ -34,15 +34,14 @@ public class PlayerController : MonoBehaviour
 
         inputActions = new PlayerInput();
 
-        inputActions.Player.Move.performed += ctx => moveInput = ctx.ReadValue<Vector2>();
-        inputActions.Player.Move.canceled += ctx => moveInput = Vector2.zero;
-
-        inputActions.Player.Rotate.performed += ctx => rotateInput = ctx.ReadValue<float>();
-        inputActions.Player.Rotate.canceled += ctx => rotateInput = 0;
+        
 
         // Listen for the "Drift" action
         inputActions.Player.Drift.performed += ctx => ToggleHandbrake(true);
         inputActions.Player.Drift.canceled += ctx => ToggleHandbrake(false);
+     // Setup rotate action listener
+        inputActions.Player.Rotate.performed += ctx => m_rotateInput = ctx.ReadValue<float>();
+        inputActions.Player.Rotate.canceled += ctx => m_rotateInput = 0;
     }
 
     private void OnEnable()
@@ -62,144 +61,81 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!handbrakeActive)
+        Steer();
+        Accelerate();
+        UpdateWheelPoses();
+
+        if (handbrakeActive)
         {
-            HandleMovement();
-            HandleRotation();
+            ApplyHandbrake();
+            Debug.Log("Handbrake");
         }
         else
         {
-            driftTime += Time.fixedDeltaTime; // Accumulate drift time
-
-            HandleHandbrake();
+            frontDriverW.brakeTorque = 0;
+            frontPassengerW.brakeTorque = 0;
+            rearDriverW.brakeTorque = 0;
+            rearPassengerW.brakeTorque = 0;
         }
-        // Handle boost if active
-        if (isBoosting)
+    }
+
+    private void Steer()
+    {
+            // Calculate the target steering angle based on input and the maximum steering angle.
+        float targetSteeringAngle = maxSteerAngle * m_rotateInput;
+
+        if (Mathf.Abs(m_rotateInput) < 0.01f)
         {
-            ApplyBoost();
+            // If there's no input, smoothly return the wheels to the center position (0 degrees).
+            currentSteerAngle = Mathf.Lerp(currentSteerAngle, 0, steeringSensitivity * 10 * Time.deltaTime);
         }
-
-    }
-
-    private void HandleMovement()
-    {
-        Vector3 moveDirection = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0) * new Vector3(moveInput.x, 0, 40);
-        Vector3 movement = moveDirection.normalized * movementSpeed;
-        lastDirectionBeforeHandbrake = transform.forward;
-        rb.MovePosition(rb.position + movement * Time.fixedDeltaTime);
-    }
-
-    private void HandleRotation()
-    {
-        Quaternion deltaRotation = Quaternion.Euler(new Vector3(0, rotateInput * rotationSpeed * Time.fixedDeltaTime, 0));
-        rb.MoveRotation(rb.rotation * deltaRotation);
-    }
-
-    private void HandleHandbrake()
-    {
-        if (Mathf.Abs(rotateInput) > 0)
+        else
         {
-            float rotationAmount = rotateInput * (rotationSpeed * 3 /2) * Time.fixedDeltaTime;
-            Quaternion turn = Quaternion.Euler(0f, rotationAmount, 0f);
-            rb.MoveRotation(rb.rotation * turn);
+            // If there is input, smoothly transition towards the target steering angle.
+            currentSteerAngle = Mathf.Lerp(currentSteerAngle, targetSteeringAngle, steeringSensitivity * Time.deltaTime);
         }
 
-        // Calculate the current direction based on input
-        Quaternion currentRotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0);
-        Vector3 newDirectionInput = new Vector3(moveInput.x, 0, 10);
-        Vector3 currentDirection = (currentRotation * newDirectionInput).normalized;
+        // Apply the interpolated steering angle to the wheel colliders.
+        frontDriverW.steerAngle = currentSteerAngle;
+        frontPassengerW.steerAngle = currentSteerAngle;
+    }
+    private void Accelerate()
+    {
+        
+        rearDriverW.motorTorque =  motorForce;
+        rearPassengerW.motorTorque =  motorForce;
 
-        // Blend the last direction before handbrake and the current direction
-        Vector3 blendedDirection = Vector3.Lerp(lastDirectionBeforeHandbrake.normalized, currentDirection, 0.4f);
-
-        // Apply movement speed
-        Vector3 movement = blendedDirection * movementSpeed;
-
-        // Move the rigidbody
-        rb.MovePosition(rb.position + movement * Time.fixedDeltaTime);
     }
 
+    private void ApplyHandbrake()
+    {
+        var brakeTorque = handbrakeForce;
+        rearDriverW.brakeTorque = brakeTorque;
+        rearPassengerW.brakeTorque = brakeTorque;
+    }
+
+    private void UpdateWheelPoses()
+    {
+        UpdateWheelPose(frontDriverW, frontDriverT);
+        UpdateWheelPose(frontPassengerW, frontPassengerT);
+        UpdateWheelPose(rearDriverW, rearDriverT);
+        UpdateWheelPose(rearPassengerW, rearPassengerT);
+    }
+
+    private void UpdateWheelPose(WheelCollider collider, Transform transform)
+    {
+        Vector3 _pos;
+        Quaternion _quat;
+
+        collider.GetWorldPose(out _pos, out _quat);
+
+        transform.position = _pos;
+        transform.rotation = _quat;
+    }
 
     private void ToggleHandbrake(bool active)
-{
-    handbrakeActive = active;
-    if (active)
     {
-        // Reset drift time when handbrake is activated
-        driftTime = 0f;
+        handbrakeActive = active;
+        handbrakeForce = active ? brakeForce : 0f;
     }
-    else
-    {
-        // Calculate boost amount based on drift time when handbrake is released
-        boostAmount += driftTime; // Adjust this calculation as needed
-        boostAmount = Mathf.Min(boostAmount, maxBoost); // Cap the boost amount
-
-        // Reset drift time
-        driftTime = 0f;
-
-        // Start boosting if there's accumulated boost
-        if (boostAmount > 0)
-        {
-            isBoosting = true;
-            boostTimer = 0f; // Reset the boost timer
-        }
-
-        // Adjust the car's velocity direction when handbrake is released
-        rb.velocity = transform.forward * rb.velocity.magnitude;
-    }
-
-    // Update Rigidbody drag values
-    rb.drag = active ? handbrakeDrag : normalDrag;
-    rb.angularDrag = active ? handbrakeAngularDrag : normalAngularDrag;
-}
-    private void ApplyBoost()
-    {
-        if (boostAmount > 0 && boostTimer < boostDuration)
-        {
-            // Apply force in the forward direction
-            rb.AddForce(transform.forward * boostAmount, ForceMode.Impulse);
-
-            // Update boost timer
-            boostTimer += Time.fixedDeltaTime;
-        }
-        else
-        {
-            // Reset boost state when duration is over or boost is depleted
-            isBoosting = false;
-            boostTimer = 0f;
-            boostAmount = 0f; // Optionally reset boost amount here or on specific conditions
-        }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Finish"))
-        {
-            GameManager.Instance.GameOver();
-        }
-    }
-}
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.collider.CompareTag("Obstacle"))
-        {
-            LoseLife();
-            Destroy(collision.gameObject);
-        }
-    }
-
-    private void LoseLife()
-    {
-        lives -= 1; // Subtract one life
-        Debug.Log("Life lost! Remaining lives: " + lives);
-
-        if (lives <= 0)
-        {
-            Debug.Log("Game Over!");
-            // Handle game over logic here
-        }
-    }
-
-
 }
