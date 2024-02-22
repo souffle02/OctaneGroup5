@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2651206032378609879, guid: 045ea73a8fe66664d9863c9fb170df80, type: 3}
+      propertyPath: _spinSpeed
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 4009280849293219757, guid: 045ea73a8fe66664d9863c9fb170df80, type: 3}
       propertyPath: m_Name
       value: Rocket Launcher Variant

@@ -2,6 +2,14 @@ using UnityEngine;
 
 public class PowerUp : MonoBehaviour
 {
+    private void OnEnable() {
+        PowerupCollectionManager.onCollectRocketLauncher += LauncherObtained;
+    }
+
+    private void OnDisable() {
+        PowerupCollectionManager.onCollectRocketLauncher -= LauncherObtained;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -9,5 +17,9 @@ public class PowerUp : MonoBehaviour
             other.GetComponent<PlayerController>().EnableShooting();
             Destroy(gameObject); // Destroy the power-up
         }
+    }
+
+    private void LauncherObtained(PowerupCollectionManager powerup) {
+        Debug.Log("Rocket launcher obtained");
     }
 }
