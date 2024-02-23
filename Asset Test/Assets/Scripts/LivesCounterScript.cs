@@ -7,14 +7,13 @@ public class LivesCounterScript : MonoBehaviour
 {
     [SerializeField] private TMP_Text livesCounter;
     private float livesCount = PlayerController.lives;
-    private bool invincible;
+    // private bool invincible;  // may not need the invincibility section since a script was made for it already
     public static LivesCounterScript LivesInstance;
 
     private void OnEnable()
     {
         EventScriptManager.onPlayerCollectLifeEvent += AddLife;
         EventScriptManager.onPlayerLoseLifeEvent += SubtractLife;
-        PowerupCollectionManager.onCollectInvincibilityShield += ActiveInvincibility;
         PowerupCollectionManager.onCollectLifeRestore += LivesRestored;        
         // Event.onPlayerCollectLifeEvent += AddLife;
         // Event.onPlayerLoseLifeEvent += SubtractLife;
@@ -24,7 +23,6 @@ public class LivesCounterScript : MonoBehaviour
     {
         EventScriptManager.onPlayerCollectLifeEvent -= AddLife;
         EventScriptManager.onPlayerLoseLifeEvent -= SubtractLife;
-        PowerupCollectionManager.onCollectInvincibilityShield -= ActiveInvincibility;
         PowerupCollectionManager.onCollectLifeRestore -= LivesRestored;
         // Event.onPlayerCollectLifeEvent -= AddLife;
         // Event.onPlayerLoseLifeEvent -= SubtractLife;
@@ -33,7 +31,7 @@ public class LivesCounterScript : MonoBehaviour
     private void Start()
     {
         livesCounter.SetText(livesCount.ToString());
-        invincible = false;
+        // invincible = false;
     }
     private void Awake()
     {
@@ -55,21 +53,12 @@ public class LivesCounterScript : MonoBehaviour
         livesCounter.SetText(livesCount.ToString());
     }
 
-    private void SubtractLife(EventScriptManager events) //needs to check if invincible is true
+    private void SubtractLife(EventScriptManager events)
     {
-        if (!invincible)
-        {
-            Debug.Log("Life loss event heard");
-            livesCount--;
-            livesCounter.SetText(livesCount.ToString());
-        }
+        Debug.Log("Life loss event heard");
+        livesCount--;
+        livesCounter.SetText(livesCount.ToString());
     }
-
-    private void ActiveInvincibility(PowerupCollectionManager powerup) {
-        Debug.Log("Invincibility shield active");
-        invincible = true;
-    }
-
     private void LivesRestored(PowerupCollectionManager powerup) {
         Debug.Log("Lives fully restored");
         livesCount = 3;

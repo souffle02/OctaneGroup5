@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PowerUp : MonoBehaviour
+public class RocketLauncher : MonoBehaviour
 {
     private void OnEnable() {
         PowerupCollectionManager.onCollectRocketLauncher += LauncherObtained;

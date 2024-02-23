@@ -3,6 +3,15 @@ using System.Collections;
 
 public class Invincibility : MonoBehaviour
 {
+    // may add the invincibility event triggers here depending on what group decides
+    private void OnEnable() {
+        PowerupCollectionManager.onCollectInvincibility += ActiveInvincibility;
+    }
+
+    private void OnDisable() {
+        PowerupCollectionManager.onCollectInvincibility -= ActiveInvincibility;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -11,6 +20,10 @@ public class Invincibility : MonoBehaviour
             other.gameObject.GetComponent<PlayerController>().StartCoroutine(ActivateAndDeactivateInvincibility(other.GetComponent<PlayerController>()));
             Destroy(gameObject); // Destroy the power-up
         }
+    }
+
+    private void ActiveInvincibility(PowerupCollectionManager powerup) {
+        Debug.Log("Invincibility powerup collected");
     }
 
     private IEnumerator ActivateAndDeactivateInvincibility(PlayerController playerController)
