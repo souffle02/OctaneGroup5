@@ -36,6 +36,8 @@ public class PlayerController : MonoBehaviour
     public GameObject rocketLauncherPrefab; // Rocket Launcher
     private bool canShoot = false; // If has rocket launcher powerup
 
+    private bool isInvincible = false; //If has invincible powerup
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -187,7 +189,7 @@ public class PlayerController : MonoBehaviour
         }
         if (other.CompareTag("Progress"))
         {
-            Debug.Log("Calculating stuff");
+            // Debug.Log("Calculating stuff");
             currentProgress++;
             CalculatePercentage();
         }
@@ -198,7 +200,7 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.collider.CompareTag("Obstacle"))
         {
-            LoseLife();
+            if(!isInvincible)LoseLife();
             Destroy(collision.gameObject);
         } else {
             Debug.Log("Powerup collected.");
@@ -217,6 +219,12 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void AddLife() {
+        lives += 1;
+        Debug.Log("Life gained! Remaining lives: " + lives);
+        LivesCounterScript.LivesInstance.UpdateLives();
+    }
+
     private void CalculatePercentage()
     {
         // Calculate the current progress percentage
@@ -232,6 +240,18 @@ public class PlayerController : MonoBehaviour
     {
         canShoot = true; // Player can now shoot
     }
+
+    public void ActivateInvincibility()
+    {
+        isInvincible = true;
+        Debug.Log("Activated Invincibility");
+    }
+
+    public void DeactivateInvincibility() {
+        isInvincible = false;
+        Debug.Log("Deactivated Invincibility");
+    }
+
 
     private void TryShoot()
     {

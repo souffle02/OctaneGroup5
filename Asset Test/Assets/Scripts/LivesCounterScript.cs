@@ -57,9 +57,12 @@ public class LivesCounterScript : MonoBehaviour
 
     private void SubtractLife(EventScriptManager events) //needs to check if invincible is true
     {
-        Debug.Log("Life loss event heard");
-        livesCount--;
-        livesCounter.SetText(livesCount.ToString());
+        if (!invincible)
+        {
+            Debug.Log("Life loss event heard");
+            livesCount--;
+            livesCounter.SetText(livesCount.ToString());
+        }
     }
 
     private void ActiveInvincibility(PowerupCollectionManager powerup) {
