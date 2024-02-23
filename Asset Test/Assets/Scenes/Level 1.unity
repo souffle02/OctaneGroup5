@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1034484023}
-  m_IndirectSpecularColor: {r: 0.03614529, g: 0.050296597, b: 0.08971595, a: 1}
+  m_IndirectSpecularColor: {r: 0.036144946, g: 0.05029749, b: 0.08860371, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -54943,7 +54943,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 969095713}
   serializedVersion: 4
-  m_Mass: 1000
+  m_Mass: 1500
   m_Drag: 0.1
   m_AngularDrag: 0.2
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -54984,7 +54984,7 @@ MonoBehaviour:
   rearDriverT: {fileID: 1676713362}
   rearPassengerT: {fileID: 281212344}
   maxSteerAngle: 25
-  motorForce: 2500
+  motorForce: 3000
   brakeForce: 2000
   rocketLauncherPrefab: {fileID: 1459390192040592412, guid: bfa441a3c5e5246b9a24602d605ee984, type: 3}
 --- !u!65 &1363944738
@@ -79156,3 +79156,4 @@ SceneRoots:
   - {fileID: 1335198983}
   - {fileID: 666077370}
   - {fileID: 870133927}
+  - {fileID: 836300021}
