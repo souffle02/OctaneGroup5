@@ -36,6 +36,8 @@ public class PlayerController : MonoBehaviour
     public GameObject rocketLauncherPrefab; // Rocket Launcher
     private bool canShoot = false; // If has rocket launcher powerup
 
+    private bool isInvincible = false; //If has invincible powerup
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -180,14 +182,14 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.tag);
+        //Debug.Log(other.tag);
         if (other.CompareTag("Finish"))
         {
             GameManager.Instance.LevelEnd();
         }
         if (other.CompareTag("Progress"))
         {
-            Debug.Log("Calculating stuff");
+            // Debug.Log("Calculating stuff");
             currentProgress++;
             CalculatePercentage();
         }
@@ -198,10 +200,8 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.collider.CompareTag("Obstacle"))
         {
-            LoseLife();
+            if(!isInvincible)LoseLife();
             Destroy(collision.gameObject);
-        } else {
-            Debug.Log("Powerup collected.");
         }
     }
 
@@ -215,6 +215,12 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Game Over!");
             // Handle game over logic here
         }
+    }
+
+    public void AddLife() {
+        lives += 1;
+        Debug.Log("Life gained! Remaining lives: " + lives);
+        LivesCounterScript.LivesInstance.UpdateLives();
     }
 
     private void CalculatePercentage()
@@ -233,19 +239,30 @@ public class PlayerController : MonoBehaviour
         canShoot = true; // Player can now shoot
     }
 
+    public void ActivateInvincibility()
+    {
+        isInvincible = true;
+        Debug.Log("Activated Invincibility");
+    }
+
+    public void DeactivateInvincibility() {
+        isInvincible = false;
+        Debug.Log("Deactivated Invincibility");
+    }
+
+
     private void TryShoot()
     {
-        print("no power up");
         if (canShoot)
         {
             ShootProjectile();
-            print("shot");
+            Debug.Log("Rocket Fired");
         }
     }
 
     private void ShootProjectile()
     {
-        Vector3 spawnPosition = transform.position + transform.forward * 2f; // Adjust '2f' as needed to position above the car
+        Vector3 spawnPosition = transform.position + transform.forward * 2f;
         Instantiate(rocketLauncherPrefab, spawnPosition, transform.rotation);
         canShoot = false;
     }
