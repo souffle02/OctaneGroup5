@@ -182,7 +182,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.tag);
+        //Debug.Log(other.tag);
         if (other.CompareTag("Finish"))
         {
             GameManager.Instance.LevelEnd();
@@ -202,8 +202,6 @@ public class PlayerController : MonoBehaviour
         {
             if(!isInvincible)LoseLife();
             Destroy(collision.gameObject);
-        } else {
-            Debug.Log("Powerup collected.");
         }
     }
 
@@ -255,17 +253,16 @@ public class PlayerController : MonoBehaviour
 
     private void TryShoot()
     {
-        print("no power up");
         if (canShoot)
         {
             ShootProjectile();
-            print("shot");
+            Debug.Log("Rocket Fired");
         }
     }
 
     private void ShootProjectile()
     {
-        Vector3 spawnPosition = transform.position + transform.forward * 2f; // Adjust '2f' as needed to position above the car
+        Vector3 spawnPosition = transform.position + transform.forward * 2f;
         Instantiate(rocketLauncherPrefab, spawnPosition, transform.rotation);
         canShoot = false;
     }
