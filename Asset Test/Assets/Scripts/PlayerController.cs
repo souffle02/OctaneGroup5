@@ -36,7 +36,8 @@ public class PlayerController : MonoBehaviour
     public GameObject rocketLauncherPrefab; // Rocket Launcher
     private bool canShoot = false; // If has rocket launcher powerup
 
-    private bool isInvincible = false; //If has invincible powerup
+    private bool isInvincible = false; // If has invincible powerup
+    private bool timewarpActive = false; // If has timewarp powerup
 
     private void Awake()
     {
@@ -250,6 +251,16 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Deactivated Invincibility");
     }
 
+    public void ActivateTimewarp()
+    {
+        timewarpActive = true;
+        Debug.Log("Activated Timewarp");
+    }
+
+    public void DeactivateTimewarp() {
+        timewarpActive = false;
+        Debug.Log("Deactivated Timewarp");
+    }
 
     private void TryShoot()
     {
