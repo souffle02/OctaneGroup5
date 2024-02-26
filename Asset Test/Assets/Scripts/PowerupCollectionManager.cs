@@ -21,7 +21,7 @@ public class PowerupCollectionManager : MonoBehaviour
     */
 
     public static event Action<PowerupCollectionManager> onCollectCoinMultiplier;
-    public static event Action<PowerupCollectionManager> onCollectInvincibilityShield;
+    public static event Action<PowerupCollectionManager> onCollectInvincibility;
     public static event Action<PowerupCollectionManager> onCollectRepairKit;
     public static event Action<PowerupCollectionManager> onCollectLifeRestore;
     public static event Action<PowerupCollectionManager> onCollectTimewarp;
@@ -37,7 +37,7 @@ public class PowerupCollectionManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.I))
         {
-            onCollectInvincibilityShield?.Invoke(this);
+            onCollectInvincibility?.Invoke(this);
         }
 
         if (Input.GetKeyDown(KeyCode.K))
