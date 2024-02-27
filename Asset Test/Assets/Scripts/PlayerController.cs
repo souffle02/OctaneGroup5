@@ -59,6 +59,9 @@ public class PlayerController : MonoBehaviour
 
         inputActions.Player.Shoot.performed += ctx => TryShoot();
      // Setup rotate action listener
+        inputActions.Player.Move.performed += ctx => moveInput = ctx.ReadValue<Vector2>();
+        inputActions.Player.Move.canceled += ctx => moveInput = Vector2.zero;
+
         inputActions.Player.Rotate.performed += ctx => m_rotateInput = ctx.ReadValue<float>();
         inputActions.Player.Rotate.canceled += ctx => m_rotateInput = 0;
 
@@ -132,9 +135,10 @@ public class PlayerController : MonoBehaviour
     private void Accelerate()
     {
         
-        rearDriverW.motorTorque =  motorForce;
-        rearPassengerW.motorTorque =  motorForce;
-        
+        float force = motorForce * moveInput.y;
+        rearDriverW.motorTorque = force;
+        rearPassengerW.motorTorque = force;
+    
 
     }
 
