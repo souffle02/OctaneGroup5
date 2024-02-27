@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
     private float rotateInput;
     private bool handbrakeActive = false; // Handbrake flag
     private float m_rotateInput; // Add this to capture the rotate input
-
+    [SerializeField] GameObject Crasheffects;
     
 
     private int totalProgressCheckpoints; // Total number of progress checkpoints
@@ -215,6 +215,7 @@ public class PlayerController : MonoBehaviour
         lives -= 1; // Subtract one life
         Debug.Log("Life lost! Remaining lives: " + lives);
         LivesCounterScript.LivesInstance.UpdateLives();
+        Crasheffects.gameObject.SetActive(true);
         if (lives <= 0)
         {
             Debug.Log("Game Over!");
