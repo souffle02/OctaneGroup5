@@ -3,6 +3,7 @@ using System.Collections;
 
 public class Invincibility : MonoBehaviour
 {
+    private float timeInvincible = 5;
     // may add the invincibility event triggers here depending on what group decides
     private void OnEnable() {
         EventScriptManager.onCollectInvincibility += ActiveInvincibility;
@@ -26,11 +27,15 @@ public class Invincibility : MonoBehaviour
         Debug.Log("Invincibility powerup collected");
     }
 
+    private void setTimeInvincible(float time) {
+        timeInvincible = time;
+    }
+
     private IEnumerator ActivateAndDeactivateInvincibility(PlayerController playerController)
     {
         Debug.Log("invinciblity activated");
         playerController.ActivateInvincibility();
-        yield return new WaitForSeconds(3); // wait for deactivate testing
+        yield return new WaitForSeconds(timeInvincible); // wait for deactivate testing
         playerController.DeactivateInvincibility();
         Debug.Log("invinciblity deactivated");
     }
