@@ -12,6 +12,7 @@ TagManager:
   - RocketLauncher
   - Progress
   - LifeUp
+  - Coin
   layers:
   - Default
   - TransparentFX
