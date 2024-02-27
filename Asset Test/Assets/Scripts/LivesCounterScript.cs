@@ -14,7 +14,7 @@ public class LivesCounterScript : MonoBehaviour
     {
         EventScriptManager.onPlayerCollectLifeEvent += AddLife;
         EventScriptManager.onPlayerLoseLifeEvent += SubtractLife;
-        PowerupCollectionManager.onCollectLifeRestore += LivesRestored;        
+        EventScriptManager.onCollectLifeRestore += LivesRestored;        
         // Event.onPlayerCollectLifeEvent += AddLife;
         // Event.onPlayerLoseLifeEvent += SubtractLife;
     }
@@ -23,7 +23,7 @@ public class LivesCounterScript : MonoBehaviour
     {
         EventScriptManager.onPlayerCollectLifeEvent -= AddLife;
         EventScriptManager.onPlayerLoseLifeEvent -= SubtractLife;
-        PowerupCollectionManager.onCollectLifeRestore -= LivesRestored;
+        EventScriptManager.onCollectLifeRestore -= LivesRestored;
         // Event.onPlayerCollectLifeEvent -= AddLife;
         // Event.onPlayerLoseLifeEvent -= SubtractLife;
     }
@@ -59,7 +59,7 @@ public class LivesCounterScript : MonoBehaviour
         livesCount--;
         livesCounter.SetText(livesCount.ToString());
     }
-    private void LivesRestored(PowerupCollectionManager powerup) {
+    private void LivesRestored(EventScriptManager powerup) {
         Debug.Log("Lives fully restored");
         livesCount = 3;
         livesCounter.SetText(livesCount.ToString());

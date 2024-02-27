@@ -3,11 +3,11 @@ using UnityEngine;
 public class RocketLauncher : MonoBehaviour
 {
     private void OnEnable() {
-        PowerupCollectionManager.onCollectRocketLauncher += LauncherObtained;
+        EventScriptManager.onCollectRocketLauncher += LauncherObtained;
     }
 
     private void OnDisable() {
-        PowerupCollectionManager.onCollectRocketLauncher -= LauncherObtained;
+        EventScriptManager.onCollectRocketLauncher -= LauncherObtained;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -19,7 +19,7 @@ public class RocketLauncher : MonoBehaviour
         }
     }
 
-    private void LauncherObtained(PowerupCollectionManager powerup) {
+    private void LauncherObtained(EventScriptManager powerup) {
         Debug.Log("Rocket launcher obtained");
     }
 }

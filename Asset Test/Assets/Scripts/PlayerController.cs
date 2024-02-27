@@ -37,6 +37,7 @@ public class PlayerController : MonoBehaviour
     private bool canShoot = false; // If has rocket launcher powerup
 
     private bool isInvincible = false; // If has invincible powerup
+    private bool coinsDoubled = false; // If has coin multiplier
     private bool timewarpActive = false; // If has timewarp powerup
 
     private void Awake()
@@ -242,6 +243,7 @@ public class PlayerController : MonoBehaviour
 
     public void EnableShooting()
     {
+        Debug.Log("Rocket launcher obtained");
         canShoot = true; // Player can now shoot
     }
 
@@ -254,6 +256,17 @@ public class PlayerController : MonoBehaviour
     public void DeactivateInvincibility() {
         isInvincible = false;
         Debug.Log("Deactivated Invincibility");
+    }
+
+    public void ActivateCoinMultiplier()
+    {
+        coinsDoubled = true;
+        Debug.Log("Activated coin multiplier");
+    }
+
+    public void DeactivateCoinMultiplier() {
+        coinsDoubled = false;
+        Debug.Log("Deactivated coin multiplier");
     }
 
     public void ActivateTimewarp()

@@ -3,11 +3,11 @@ using UnityEngine;
 public class RepairKit : MonoBehaviour
 {
     private void OnEnable() {
-        PowerupCollectionManager.onCollectRepairKit += CollectRepairKit;
+        EventScriptManager.onCollectRepairKit += CollectRepairKit;
     }
 
     private void OnDisable() {
-        PowerupCollectionManager.onCollectRepairKit -= CollectRepairKit;
+        EventScriptManager.onCollectRepairKit -= CollectRepairKit;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -19,7 +19,7 @@ public class RepairKit : MonoBehaviour
         }
     }
 
-    private void CollectRepairKit(PowerupCollectionManager powerup) {
+    private void CollectRepairKit(EventScriptManager powerup) {
         Debug.Log("Repair kit collected");
     }
 }

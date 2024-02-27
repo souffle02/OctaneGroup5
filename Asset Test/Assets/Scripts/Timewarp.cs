@@ -10,11 +10,11 @@ public class Timewarp : MonoBehaviour
     by 25-30%, giving the player more time to react to oncoming obstacles.
     */
     private void OnEnable() {
-        PowerupCollectionManager.onCollectInvincibility += ActiveTimewarp;
+        EventScriptManager.onCollectInvincibility += ActiveTimewarp;
     }
 
     private void OnDisable() {
-        PowerupCollectionManager.onCollectInvincibility -= ActiveTimewarp;
+        EventScriptManager.onCollectInvincibility -= ActiveTimewarp;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -27,16 +27,16 @@ public class Timewarp : MonoBehaviour
         }
     }
 
-    private void ActiveTimewarp(PowerupCollectionManager powerup) {
+    private void ActiveTimewarp(EventScriptManager powerup) {
         Debug.Log("Timewarp collected");
     }
 
     private IEnumerator ActivateAndDeactivateTimewarp(PlayerController playerController)
     {
-        Debug.Log("activated");
+        Debug.Log("timewarp activated");
         playerController.ActivateTimewarp();
-        yield return new WaitForSeconds(10); // Wait for 10 seconds
-        Debug.Log("waited");
+        yield return new WaitForSeconds(2); // wait period for testing
         playerController.DeactivateTimewarp();
+        Debug.Log("timewarp deactivated");
     }
 }

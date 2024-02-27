@@ -5,11 +5,11 @@ public class Invincibility : MonoBehaviour
 {
     // may add the invincibility event triggers here depending on what group decides
     private void OnEnable() {
-        PowerupCollectionManager.onCollectInvincibility += ActiveInvincibility;
+        EventScriptManager.onCollectInvincibility += ActiveInvincibility;
     }
 
     private void OnDisable() {
-        PowerupCollectionManager.onCollectInvincibility -= ActiveInvincibility;
+        EventScriptManager.onCollectInvincibility -= ActiveInvincibility;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -22,16 +22,16 @@ public class Invincibility : MonoBehaviour
         }
     }
 
-    private void ActiveInvincibility(PowerupCollectionManager powerup) {
+    private void ActiveInvincibility(EventScriptManager powerup) {
         Debug.Log("Invincibility powerup collected");
     }
 
     private IEnumerator ActivateAndDeactivateInvincibility(PlayerController playerController)
     {
-        Debug.Log("activated");
+        Debug.Log("invinciblity activated");
         playerController.ActivateInvincibility();
-        yield return new WaitForSeconds(5); // Wait for 5 seconds
-        Debug.Log("waited");
+        yield return new WaitForSeconds(3); // wait for deactivate testing
         playerController.DeactivateInvincibility();
+        Debug.Log("invinciblity deactivated");
     }
 }
