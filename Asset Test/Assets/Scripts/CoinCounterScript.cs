@@ -6,7 +6,7 @@ using UnityEngine;
 public class CoinCounterScript : MonoBehaviour
 {
     [SerializeField] private TMP_Text coinCounter;
-    private int coinCount = 0;
+    private float coinCount = 0;
 
     private void OnEnable()
     {
@@ -26,7 +26,13 @@ public class CoinCounterScript : MonoBehaviour
         coinCounter.SetText(coinCount.ToString());
     }
 
-    private void AddCoin(EventScriptManager events) // argument should be EventScript event
+    public void UpdateCoins()
+    {
+        coinCount = PlayerController.coins;
+        coinCounter.SetText(coinCount.ToString());
+    }
+
+    public void AddCoin(EventScriptManager events) // argument should be EventScript event
     {
         Debug.Log("Coin collection event heard");
         coinCount++;

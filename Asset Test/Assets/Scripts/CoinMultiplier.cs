@@ -30,7 +30,7 @@ public class CoinMultiplier : MonoBehaviour
     {
         Debug.Log("coin multiplier activated");
         playerController.ActivateCoinMultiplier();
-        yield return new WaitForSeconds(3); // Wait period for testing
+        yield return new WaitForSeconds(6); // Wait period for testing
         playerController.DeactivateCoinMultiplier();
         Debug.Log("coin multiplier deactivated");
     }

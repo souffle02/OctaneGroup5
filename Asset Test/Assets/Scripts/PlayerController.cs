@@ -5,6 +5,7 @@ using TMPro;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private TMP_Text progressText;
+    public static float coins = 0; // coins collected by the player
     public static float lives = 3; // Starting lives for player
 
     public WheelCollider frontDriverW, frontPassengerW, rearDriverW, rearPassengerW;
@@ -228,6 +229,16 @@ public class PlayerController : MonoBehaviour
         lives += 1;
         Debug.Log("Life gained! Remaining lives: " + lives);
         LivesCounterScript.LivesInstance.UpdateLives();
+    }
+
+    public void AddCoin() {
+        if (coinsDoubled) {
+            coins += 2;
+            Debug.Log("Coin (with multiplier) collected");
+        } else {
+            coins += 1;
+            Debug.Log("Coin collected");
+        }
     }
 
     private void CalculatePercentage()
