@@ -27,7 +27,6 @@ public class Speedometer : MonoBehaviour
     {
         // 3.6f to convert in kilometers
         // ** The speed must be clamped by the car controller **
-        // TODO: something is wrong with the speed
         // Debug.Log(target.velocity.magnitude);
         // Debug.Log(target.velocity);
         speed = target.velocity.magnitude * 3.6f;

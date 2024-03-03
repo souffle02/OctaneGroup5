@@ -1,9 +1,13 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Coin : MonoBehaviour
 {
+    public static event Action<Coin> onPlayerCollectCoinEvent;
+
+    /*
     private void OnEnable() {
         EventScriptManager.onPlayerCollectCoinEvent += coinCollected;
     }
@@ -11,17 +15,20 @@ public class Coin : MonoBehaviour
     private void OnDisable() {
         EventScriptManager.onPlayerCollectCoinEvent -= coinCollected;
     }
+    */
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            other.GetComponent<PlayerController>().AddCoin();
+            onPlayerCollectCoinEvent?.Invoke(this);
             Destroy(gameObject); // Destroy the coin after collection
         }
     }
 
+    /*
     private void coinCollected(EventScriptManager events) {
         Debug.Log("Player collected a coin");
     }
+    */
 }

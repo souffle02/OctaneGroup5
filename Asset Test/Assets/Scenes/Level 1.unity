@@ -21515,6 +21515,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   livesCounter: {fileID: 399881063}
+  livesCount: 3
 --- !u!114 &399881063
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31403,9 +31404,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 764846e66da02ad4b80bdca4eaaf2106, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coinCounter: {fileID: 1805495854}
-  logCounter: {fileID: 1086735296}
-  livesCounter: {fileID: 399881063}
 --- !u!4 &666077370
 Transform:
   m_ObjectHideFlags: 0
@@ -45495,6 +45493,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   logCounter: {fileID: 1086735296}
+  logCount: 0
 --- !u!114 &1086735296
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -54961,6 +54960,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   progressText: {fileID: 228239910}
+  coins: 0
+  lives: 3
   frontDriverW: {fileID: 1514390795}
   frontPassengerW: {fileID: 1356986945}
   rearDriverW: {fileID: 977442161}
@@ -69259,6 +69260,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coinCounter: {fileID: 1805495854}
+  coinCount: 0
 --- !u!114 &1805495854
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,13 +1,17 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
+using System;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private TMP_Text progressText;
-    public static float coins = 0; // coins collected by the player
-    public static float lives = 3; // Starting lives for player
 
+    [SerializeField] private TMP_Text progressText;
+    public int coins = 0; // coins collected by the player
+    public int lives = 3; // Starting lives for player
+    private int currLevel = 1;
+
+    // DRIVING
     public WheelCollider frontDriverW, frontPassengerW, rearDriverW, rearPassengerW;
     public Transform frontDriverT, frontPassengerT, rearDriverT, rearPassengerT;
     private float m_steeringAngle;
@@ -29,17 +33,21 @@ public class PlayerController : MonoBehaviour
     private float m_rotateInput; // Add this to capture the rotate input
     [SerializeField] GameObject Crasheffects;
     
-
+    // CHECKPOINTS
     private int totalProgressCheckpoints; // Total number of progress checkpoints
     private int currentProgress; // Current progress count
     private int currentPercentage; // Current progress percentage
 
+    // POWERUPS (lots of this prob gotta be refactored to respective scripts for the events
     public GameObject rocketLauncherPrefab; // Rocket Launcher
     private bool canShoot = false; // If has rocket launcher powerup
 
     private bool isInvincible = false; // If has invincible powerup
-    private bool coinsDoubled = false; // If has coin multiplier
+    // private bool coinsDoubled = false; // If has coin multiplier
     private bool timewarpActive = false; // If has timewarp powerup
+
+    // EVENTS
+    public static event Action<PlayerController> onPlayerLoseLifeEvent;
 
     private void Awake()
     {
@@ -192,7 +200,19 @@ public class PlayerController : MonoBehaviour
         //Debug.Log(other.tag);
         if (other.CompareTag("Finish"))
         {
-            GameManager.Instance.LevelEnd();
+            if(currLevel == 1)
+            {
+                GameManager.Instance.Level1End();
+            }
+            else if(currLevel == 2)
+            {
+                GameManager.Instance.Level2End();
+            }
+            else if(currLevel == 3)
+            {
+                GameManager.Instance.Level3End();
+            }
+            // GameManager.Instance.LevelEnd();
         }
         if (other.CompareTag("Progress"))
         {
@@ -214,24 +234,29 @@ public class PlayerController : MonoBehaviour
 
     private void LoseLife() //needs to have an update for add life, disconnect from livescounterscript.fs
     {
-        lives -= 1; // Subtract one life
-        Debug.Log("Life lost! Remaining lives: " + lives);
-        LivesCounterScript.LivesInstance.UpdateLives();
+        // lives -= 1; // Subtract one life
+        Debug.Log("Life lost!");
+        onPlayerLoseLifeEvent?.Invoke(this);
+        // LivesCounterScript.LivesInstance.UpdateLives();
         Crasheffects.gameObject.SetActive(true);
-        if (lives <= 0)
+        /*
+        if (lives <= 0) // DONT HANDLE GAMEOVER LOGIC IN THIS SCRIPT. this is still here in case we need to revert any changes
         {
             Debug.Log("Game Over!");
             // Handle game over logic here
         }
+        */
     }
 
-    public void AddLife() {
+    public void AddLife()
+    { // DONT HANDLE ADDLIFE LOGIC IN THIS SCRIPT. this is still here in case we need to revert any changes
         lives += 1;
         Debug.Log("Life gained! Remaining lives: " + lives);
-        LivesCounterScript.LivesInstance.UpdateLives();
-    }
+        // LivesCounterScript.LivesInstance.UpdateLives();
+    } 
 
-    public void AddCoin() {
+    /* public void AddCoin()
+    { // DONT HANDLE ADDCOIN LOGIC IN THIS SCRIPT. this is still here in case we need to revert any changes
         if (coinsDoubled) {
             coins += 2;
             Debug.Log("Coin (with multiplier) collected");
@@ -239,7 +264,7 @@ public class PlayerController : MonoBehaviour
             coins += 1;
             Debug.Log("Coin collected");
         }
-    }
+    } */
 
     private void CalculatePercentage()
     {
@@ -269,6 +294,7 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Deactivated Invincibility");
     }
 
+    /*
     public void ActivateCoinMultiplier()
     {
         coinsDoubled = true;
@@ -279,6 +305,7 @@ public class PlayerController : MonoBehaviour
         coinsDoubled = false;
         Debug.Log("Deactivated coin multiplier");
     }
+    */
 
     public void ActivateTimewarp()
     {

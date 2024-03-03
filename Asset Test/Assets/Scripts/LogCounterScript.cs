@@ -6,7 +6,8 @@ using UnityEngine;
 public class LogCounter : MonoBehaviour
 {
     [SerializeField] private TMP_Text logCounter;
-    private int logCount = 0;
+    public static LogCounter LogsInstance;
+    public int logCount = 0;
     private int CURR_LEVEL = 0;
     private List<int> logCountPerLevel = new List<int> { 2, 2, 2, 2 };
 
@@ -20,6 +21,11 @@ public class LogCounter : MonoBehaviour
     {
         EventScriptManager.onPlayerCollectLogEvent -= AddLog;
         // Event.onPlayerCollectLogEvent -= AddLog;
+    }
+
+    private void Awake()
+    {
+        LogsInstance = this;
     }
 
     private void Start()

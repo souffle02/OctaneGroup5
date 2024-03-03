@@ -6,14 +6,14 @@ using UnityEngine;
 public class LivesCounterScript : MonoBehaviour
 {
     [SerializeField] private TMP_Text livesCounter;
-    private float livesCount = PlayerController.lives;
+    public int livesCount = 3;
     // private bool invincible;  // may not need the invincibility section since a script was made for it already
     public static LivesCounterScript LivesInstance;
 
     private void OnEnable()
     {
-        EventScriptManager.onPlayerCollectLifeEvent += AddLife;
-        EventScriptManager.onPlayerLoseLifeEvent += SubtractLife;
+        RepairKit.onCollectRepairKit += AddLife;
+        PlayerController.onPlayerLoseLifeEvent += SubtractLife;
         EventScriptManager.onCollectLifeRestore += LivesRestored;        
         // Event.onPlayerCollectLifeEvent += AddLife;
         // Event.onPlayerLoseLifeEvent += SubtractLife;
@@ -21,8 +21,8 @@ public class LivesCounterScript : MonoBehaviour
 
     private void OnDisable()
     {
-        EventScriptManager.onPlayerCollectLifeEvent -= AddLife;
-        EventScriptManager.onPlayerLoseLifeEvent -= SubtractLife;
+        RepairKit.onCollectRepairKit -= AddLife;
+        PlayerController.onPlayerLoseLifeEvent -= SubtractLife;
         EventScriptManager.onCollectLifeRestore -= LivesRestored;
         // Event.onPlayerCollectLifeEvent -= AddLife;
         // Event.onPlayerLoseLifeEvent -= SubtractLife;
@@ -40,20 +40,22 @@ public class LivesCounterScript : MonoBehaviour
             LivesInstance = this;
         }
     }
+    /*
     public void UpdateLives()
     {
         livesCount = PlayerController.lives;
         livesCounter.SetText(livesCount.ToString());
     }
+    */
 
-    private void AddLife(EventScriptManager events) // argument should be EventScript event
+    private void AddLife(RepairKit events) // argument should be EventScript event
     {
         Debug.Log("Life collection event heard");
         livesCount++;
         livesCounter.SetText(livesCount.ToString());
     }
 
-    private void SubtractLife(EventScriptManager events)
+    private void SubtractLife(PlayerController events)
     {
         Debug.Log("Life loss event heard");
         livesCount--;
