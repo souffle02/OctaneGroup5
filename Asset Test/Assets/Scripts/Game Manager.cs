@@ -29,4 +29,7 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene("Level3End");
     }
+    public void GameOver() {
+        SceneManager.LoadScene("Game Over");
+    }
 }

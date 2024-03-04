@@ -253,7 +253,7 @@ public class PlayerController : MonoBehaviour
         lives += 1;
         Debug.Log("Life gained! Remaining lives: " + lives);
         // LivesCounterScript.LivesInstance.UpdateLives();
-    } 
+    }
 
     /* public void AddCoin()
     { // DONT HANDLE ADDCOIN LOGIC IN THIS SCRIPT. this is still here in case we need to revert any changes
@@ -265,6 +265,10 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Coin collected");
         }
     } */
+
+    public int getLevel() {
+        return currLevel;
+    }
 
     private void CalculatePercentage()
     {

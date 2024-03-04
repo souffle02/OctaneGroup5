@@ -60,6 +60,10 @@ public class LivesCounterScript : MonoBehaviour
         Debug.Log("Life loss event heard");
         livesCount--;
         livesCounter.SetText(livesCount.ToString());
+        if (livesCount <= 0) {
+            Debug.Log("Game Over");
+            GameManager.Instance.GameOver();
+        }
     }
     private void LivesRestored(EventScriptManager powerup) {
         Debug.Log("Lives fully restored");

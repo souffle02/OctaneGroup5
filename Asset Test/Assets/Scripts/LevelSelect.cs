@@ -14,6 +14,7 @@ public class LevelSelect : MonoBehaviour
 
     public void OpenScene()
     {
+        Debug.Log("Loading level " + level.ToString());
         SceneManager.LoadScene("Level " + level.ToString());
     }
 }
