@@ -1,6 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Timewarp : MonoBehaviour
 {
@@ -9,7 +9,13 @@ public class Timewarp : MonoBehaviour
     make much tighter turns than they normally would. Additionally, playing speed will be reduced
     by 25-30%, giving the player more time to react to oncoming obstacles.
     */
+
+    private float timeSlowDownAmount = 0.5f; //1 = normal
+
+    public Image timeWarpEffectHue;
+
     private void OnEnable() {
+        timeWarpEffectHue.enabled = false;
         EventScriptManager.onCollectInvincibility += ActiveTimewarp;
     }
 
@@ -33,10 +39,23 @@ public class Timewarp : MonoBehaviour
 
     private IEnumerator ActivateAndDeactivateTimewarp(PlayerController playerController)
     {
-        Debug.Log("timewarp activated");
-        playerController.ActivateTimewarp();
-        yield return new WaitForSeconds(2); // wait period for testing
-        playerController.DeactivateTimewarp();
+        Debug.Log("timewarp activated, hue: " + timeWarpEffectHue.enabled);
+
+
+        // Slow down time
+        timeWarpEffectHue.enabled = true;
+        Debug.Log(" hue: " + timeWarpEffectHue.enabled);
+        Time.timeScale = timeSlowDownAmount;
+        Time.fixedDeltaTime = 0.02f * Time.timeScale; // Adjust fixedDeltaTime according to the time scale
+        
+
+        yield return new WaitForSecondsRealtime(5); // Wait for 5 seconds in real-time, not game time
+
+        // Return time to normal speed
+        Time.timeScale = 1.0f;
+        Time.fixedDeltaTime = 0.02f; // Reset fixedDeltaTime to the default value
+        timeWarpEffectHue.enabled = false;
+
         Debug.Log("timewarp deactivated");
     }
 }
