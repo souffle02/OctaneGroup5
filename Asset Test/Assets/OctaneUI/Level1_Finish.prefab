@@ -887,7 +887,7 @@ MonoBehaviour:
         m_MethodName: ChangeToLevelSelect
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgument: {fileID: 6981334698013963189, guid: b55716e0448d81148a1ba8f6fe6f9db2, type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -906,7 +906,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b4bf22059f319d45bd4481ad510c562, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelSelectCanvas: {fileID: 0}
+  levelSelectCanvas: {fileID: 6981334698013963189, guid: b55716e0448d81148a1ba8f6fe6f9db2, type: 3}
 --- !u!1 &6789450083006450456
 GameObject:
   m_ObjectHideFlags: 0

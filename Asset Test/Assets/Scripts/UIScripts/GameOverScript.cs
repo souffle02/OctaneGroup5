@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GameOverScript : MonoBehaviour
 {
@@ -24,5 +25,11 @@ public class GameOverScript : MonoBehaviour
         coinsText.SetText(coinsCount.ToString());
         livesText.SetText(livesCount.ToString());
         loreText.SetText(loreCount.ToString() + " / 2");
+    }
+
+    public void onButtonClick()
+    {
+        Debug.Log("Loading scene");
+        SceneManager.LoadScene("Level 1");
     }
 }

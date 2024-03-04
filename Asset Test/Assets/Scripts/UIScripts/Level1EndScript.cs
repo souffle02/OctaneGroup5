@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class Level1EndScript : MonoBehaviour
 {
@@ -26,5 +27,10 @@ public class Level1EndScript : MonoBehaviour
         coinsText.SetText(coinsCount.ToString());
         livesText.SetText(livesCount.ToString());
         loreText.SetText(loreCount.ToString() + " / 2");
+    }
+
+    public void onButtonClick() {
+        Debug.Log("Loading scene: Level 2");
+        SceneManager.LoadScene("Level 2");
     }
 }
