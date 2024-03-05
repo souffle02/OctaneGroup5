@@ -50,7 +50,6 @@ public class CarFollowPlayer : MonoBehaviour
                 Quaternion targetRotation = Quaternion.LookRotation(new Vector3(playerTransform.position.x, rb.position.y, playerTransform.position.z) - rb.position);
                 rb.MoveRotation(Quaternion.RotateTowards(rb.rotation, targetRotation, baseSpeed * Time.fixedDeltaTime));
                 
-            if  (distanceToPlayer < minimumDistance){minimumDistance += 2;}
             }
         }
     }
