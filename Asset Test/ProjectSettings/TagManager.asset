@@ -13,6 +13,7 @@ TagManager:
   - Progress
   - LifeUp
   - Coin
+  - Lore
   layers:
   - Default
   - TransparentFX

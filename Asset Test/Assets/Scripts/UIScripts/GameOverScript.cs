@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 
 public class GameOverScript : MonoBehaviour
 {
@@ -10,7 +11,8 @@ public class GameOverScript : MonoBehaviour
 
     private int coinsCount;
     private int livesCount;
-    private int loreCount;
+    private List<int> loreCount;
+    private int CURR_LEVEL;
 
     private void Start()
     {
@@ -20,11 +22,12 @@ public class GameOverScript : MonoBehaviour
 
         coinsCount = CoinCounterScript.CoinsInstance.coinCount;
         livesCount = LivesCounterScript.LivesInstance.livesCount;
-        loreCount = LogCounter.LogsInstance.logCount;
+        loreCount = LogCounter.LogsInstance.LogCounts;
+        CURR_LEVEL = LogCounter.LogsInstance.CURR_LEVEL;
 
         coinsText.SetText(coinsCount.ToString());
         livesText.SetText(livesCount.ToString());
-        loreText.SetText(loreCount.ToString() + " / 2");
+        loreText.SetText(loreCount[CURR_LEVEL].ToString() + " / 2");
     }
 
     public void onButtonClick()

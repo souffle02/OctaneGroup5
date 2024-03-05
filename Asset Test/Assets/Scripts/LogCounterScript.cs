@@ -7,19 +7,19 @@ public class LogCounter : MonoBehaviour
 {
     [SerializeField] private TMP_Text logCounter;
     public static LogCounter LogsInstance;
-    public int logCount = 0;
-    private int CURR_LEVEL = 0;
+    private List<int> logCounts = new List<int> { 0, 0, 0, 0 };
+    public int CURR_LEVEL = 0;
     private List<int> logCountPerLevel = new List<int> { 2, 2, 2, 2 };
 
     private void OnEnable()
     {
-        EventScriptManager.onPlayerCollectLogEvent += AddLog;
+        Lore.onPlayerCollectLogEvent += AddLog;
         // Event.onPlayerCollectLogEvent += AddLog;
     }
 
     private void OnDisable()
     {
-        EventScriptManager.onPlayerCollectLogEvent -= AddLog;
+        Lore.onPlayerCollectLogEvent -= AddLog;
         // Event.onPlayerCollectLogEvent -= AddLog;
     }
 
@@ -30,13 +30,22 @@ public class LogCounter : MonoBehaviour
 
     private void Start()
     {
-        logCounter.SetText(logCount.ToString() + "/" + logCountPerLevel[CURR_LEVEL].ToString());
+        Debug.Log(logCounts[0]);
+        logCounter.SetText(logCounts[CURR_LEVEL].ToString() + "/" + logCountPerLevel[CURR_LEVEL].ToString());
     }
 
-    private void AddLog(EventScriptManager events) // argument should be EventScript event
+    // Public property to access the data
+    public List<int> LogCounts
+    {
+        get { return logCounts; }
+        set { logCounts = value; }
+    }
+
+
+    private void AddLog(Lore events) // argument should be EventScript event
     {
         Debug.Log("Log collection event heard");
-        logCount++;
-        logCounter.SetText(logCount.ToString() + "/" + logCountPerLevel[CURR_LEVEL].ToString());
+        logCounts[CURR_LEVEL]++;
+        logCounter.SetText(logCounts[CURR_LEVEL].ToString() + "/" + logCountPerLevel[CURR_LEVEL].ToString());
     }
 }

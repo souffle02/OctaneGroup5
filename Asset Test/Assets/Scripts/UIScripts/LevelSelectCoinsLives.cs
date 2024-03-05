@@ -14,17 +14,8 @@ public class LevelSelectCoinsLives : MonoBehaviour
 
     private void Start()
     {
-        SampleCollectibles collectibleCount = FindObjectOfType<SampleCollectibles>(); // replace this with the script that has the global coin count variable
-        if (collectibleCount != null)
-        {
-            coinsCount = collectibleCount.coinsCount;
-            livesCount = collectibleCount.livesCount;
-        }
-        else
-        {
-            coinsCount = -999;
-            livesCount = -999;
-        }
+        coinsCount = CoinCounterScript.CoinsInstance.coinCount;
+        livesCount = LivesCounterScript.LivesInstance.livesCount;
         coinText.SetText(coinsCount.ToString());
         livesText.SetText(livesCount.ToString());
     }
