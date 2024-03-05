@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,6 +15,9 @@ public class Timewarp : MonoBehaviour
 
     public Image timeWarpEffectHue;
 
+    public static event Action<Timewarp> onPlayerCollectTimeWarpEvent;
+
+
     private void OnEnable() {
         timeWarpEffectHue.enabled = false;
         EventScriptManager.onCollectInvincibility += ActiveTimewarp;
@@ -28,6 +32,7 @@ public class Timewarp : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             // Start the coroutine on the player's gameObject instead of the power-up
+            onPlayerCollectTimeWarpEvent?.Invoke(this);
             other.gameObject.GetComponent<PlayerController>().StartCoroutine(ActivateAndDeactivateTimewarp(other.GetComponent<PlayerController>()));
             Destroy(gameObject); // Destroy the power-up
         }

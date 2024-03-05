@@ -12,7 +12,6 @@ public class CoinCounterScript : MonoBehaviour
     private Boolean doubleCoin = false;
 
     // TODO: add double coin logic and to HUD
-
     // PlayerController collectibleCount = FindObjectOfType<PlayerController>(); // probably dont need this.
 
     private void OnEnable()

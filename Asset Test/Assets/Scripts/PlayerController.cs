@@ -39,6 +39,7 @@ public class PlayerController : MonoBehaviour
     private int currentPercentage; // Current progress percentage
 
     // POWERUPS (lots of this prob gotta be refactored to respective scripts for the events
+    public CountdownTimer countdownTimer;
     public GameObject rocketLauncherPrefab; // Rocket Launcher
     private bool canShoot = false; // If has rocket launcher powerup
 
@@ -314,6 +315,7 @@ public class PlayerController : MonoBehaviour
     public void ActivateTimewarp()
     {
         timewarpActive = true;
+        countdownTimer.StartCountdown(5f);
         Debug.Log("Activated Timewarp");
     }
 
