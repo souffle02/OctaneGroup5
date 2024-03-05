@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1034484023}
-  m_IndirectSpecularColor: {r: 0.03614529, g: 0.050296597, b: 0.08971595, a: 1}
+  m_IndirectSpecularColor: {r: 0.036144946, g: 0.05029749, b: 0.08860371, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -42337,10 +42337,10 @@ Transform:
   m_Children:
   - {fileID: 1800223357}
   - {fileID: 1263614699}
-  - {fileID: 1083755235}
   - {fileID: 966794816}
   - {fileID: 539041416}
   - {fileID: 214777042987735101}
+  - {fileID: 1083755235}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 29.251, z: 0}
 --- !u!1 &970429279
@@ -45495,6 +45495,7 @@ GameObject:
   - component: {fileID: 1083755235}
   - component: {fileID: 1083755237}
   - component: {fileID: 1083755236}
+  - component: {fileID: 1083755238}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -45510,8 +45511,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1083755234}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.13513033, y: -0.009260701, z: 0.001263042, w: -0.99078375}
-  m_LocalPosition: {x: 0.19, y: 7.13, z: -15.63}
+  m_LocalRotation: {x: -0.13513035, y: -0.009260728, z: 0.0012630409, w: -0.99078375}
+  m_LocalPosition: {x: 0.18999672, y: 7.1300006, z: -15.629994}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -45576,6 +45577,22 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!114 &1083755238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1083755234}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34bc142607cd84d46b37e025926732e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectToFollow: {fileID: 969167399}
+  offset: {x: 0.1899967, y: 3, z: -7}
+  followSpeed: 20
+  lookSpeed: 5.89
 --- !u!1 &1086735293
 GameObject:
   m_ObjectHideFlags: 0
@@ -55108,6 +55125,7 @@ MonoBehaviour:
   motorForce: 3000
   brakeForce: 2000
   Crasheffects: {fileID: 214777042987735098}
+  countdownTimer: {fileID: 0}
   rocketLauncherPrefab: {fileID: 1459390192040592412, guid: bfa441a3c5e5246b9a24602d605ee984, type: 3}
 --- !u!65 &1363944738
 BoxCollider:
