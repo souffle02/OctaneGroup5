@@ -18,6 +18,8 @@ public class EventScriptManager : MonoBehaviour
     public static event Action<EventScriptManager> onCollectTimewarp;
     public static event Action<EventScriptManager> onCollectRocketLauncher;
 
+    public static event Action<EventScriptManager> pauseMenuEvent;
+
     // Update is called once per frame
     void Update()
     {
@@ -64,6 +66,11 @@ public class EventScriptManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.J))
         {
             onCollectRocketLauncher?.Invoke(this);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            pauseMenuEvent?.Invoke(this);
         }
     }
 }
