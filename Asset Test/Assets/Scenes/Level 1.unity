@@ -2653,8 +2653,6 @@ Transform:
   - {fileID: 1455164046}
   - {fileID: 1427020418}
   - {fileID: 1659637074}
-<<<<<<< Updated upstream
-=======
   - {fileID: 1295863618}
   - {fileID: 886752591}
   - {fileID: 2075955277}
@@ -2677,7 +2675,6 @@ Transform:
   - {fileID: 462289210}
   - {fileID: 550935889}
   - {fileID: 146707233}
->>>>>>> Stashed changes
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &87643990
@@ -6144,7 +6141,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
-<<<<<<< Updated upstream
 --- !u!1001 &208026344
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6225,8 +6221,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1516254513}
   m_SourcePrefab: {fileID: 100100000, guid: bd759135218df874a91b2cd22f25976a, type: 3}
-=======
->>>>>>> Stashed changes
 --- !u!1 &211494478
 GameObject:
   m_ObjectHideFlags: 0
@@ -16517,8 +16511,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 9c29525e79bd5f942b5e6f8a54a3e695, type: 3}
   m_PrefabInstance: {fileID: 498592728}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< Updated upstream
-=======
 --- !u!1001 &503415228
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16615,7 +16607,6 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
->>>>>>> Stashed changes
 --- !u!1 &507988254
 GameObject:
   m_ObjectHideFlags: 0
@@ -20661,8 +20652,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 636725939}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
-<<<<<<< Updated upstream
-=======
 --- !u!1 &639188091
 GameObject:
   m_ObjectHideFlags: 0
@@ -20769,7 +20758,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 639188091}
   m_Mesh: {fileID: 4300000, guid: 73121e8c0d101a741a34b39f21f69697, type: 3}
->>>>>>> Stashed changes
 --- !u!1 &639233029
 GameObject:
   m_ObjectHideFlags: 0
@@ -30507,8 +30495,6 @@ Transform:
   - {fileID: 1957102409}
   m_Father: {fileID: 1628624562}
   m_LocalEulerAnglesHint: {x: 0, y: 389.6665, z: 0}
-<<<<<<< Updated upstream
-=======
 --- !u!1001 &903257213
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -30653,7 +30639,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1993433084}
   m_SourcePrefab: {fileID: 100100000, guid: 9c29525e79bd5f942b5e6f8a54a3e695, type: 3}
->>>>>>> Stashed changes
 --- !u!1 &916051877
 GameObject:
   m_ObjectHideFlags: 0
@@ -34491,11 +34476,8 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
-<<<<<<< Updated upstream
 --- !u!1 &1034484022
-=======
 --- !u!1 &1034400320
->>>>>>> Stashed changes
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -34503,22 +34485,18 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-<<<<<<< Updated upstream
   - component: {fileID: 1034484024}
   - component: {fileID: 1034484023}
   m_Layer: 0
   m_Name: sun-light
-=======
   - component: {fileID: 1034400321}
   m_Layer: 0
   m_Name: Effects
->>>>>>> Stashed changes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
-<<<<<<< Updated upstream
 --- !u!108 &1034484023
 Light:
   m_ObjectHideFlags: 0
@@ -34582,15 +34560,12 @@ Light:
   m_ShadowRadius: 0
   m_ShadowAngle: 0
 --- !u!4 &1034484024
-=======
 --- !u!4 &1034400321
->>>>>>> Stashed changes
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< Updated upstream
   m_GameObject: {fileID: 1034484022}
   serializedVersion: 2
   m_LocalRotation: {x: 0.9961947, y: 0, z: 0, w: -0.08715589}
@@ -34599,7 +34574,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1628624562}
-=======
   m_GameObject: {fileID: 1034400320}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
@@ -34615,7 +34589,6 @@ Transform:
   - {fileID: 1441348476}
   - {fileID: 1181847677}
   m_Father: {fileID: 1295863618}
->>>>>>> Stashed changes
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1035068779
 GameObject:
@@ -37999,7 +37972,6 @@ Transform:
   - {fileID: 1923458098}
   m_Father: {fileID: 1628624562}
   m_LocalEulerAnglesHint: {x: 0, y: 110.0829, z: 0}
-<<<<<<< Updated upstream
 --- !u!1001 &1140248032
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -38057,8 +38029,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 06a6b55d32baa294e9655399e6cbfa93, type: 3}
-=======
->>>>>>> Stashed changes
 --- !u!1 &1140640662
 GameObject:
   m_ObjectHideFlags: 0
@@ -45976,8 +45946,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1395718224}
   m_Mesh: {fileID: 0}
-<<<<<<< Updated upstream
-=======
 --- !u!1001 &1397563142
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -46125,7 +46093,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
->>>>>>> Stashed changes
 --- !u!1 &1406141899
 GameObject:
   m_ObjectHideFlags: 0
@@ -55704,8 +55671,6 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
-<<<<<<< Updated upstream
-=======
 --- !u!1001 &1697901564
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -55768,7 +55733,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 1c3d3ef2b91750e4bbe0c3fd819b9253, type: 3}
   m_PrefabInstance: {fileID: 1397563142}
   m_PrefabAsset: {fileID: 0}
->>>>>>> Stashed changes
 --- !u!1 &1698191979
 GameObject:
   m_ObjectHideFlags: 0
@@ -64420,8 +64384,6 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
-<<<<<<< Updated upstream
-=======
 --- !u!1001 &1991239663
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -64518,7 +64480,6 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: 9c29525e79bd5f942b5e6f8a54a3e695, type: 3}
->>>>>>> Stashed changes
 --- !u!1 &1997323754
 GameObject:
   m_ObjectHideFlags: 0
