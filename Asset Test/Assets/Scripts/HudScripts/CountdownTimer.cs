@@ -42,7 +42,7 @@ public class CountdownTimer : MonoBehaviour
                 isCounting = false;
                 timerText.enabled = true;
             }
-        }
+        }else{timerText.enabled = false;}
     }
 
     void UpdateTimerDisplay()
