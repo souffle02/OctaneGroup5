@@ -32,6 +32,8 @@ public class PlayerController : MonoBehaviour
     private bool handbrakeActive = false; // Handbrake flag
     private float m_rotateInput; // Add this to capture the rotate input
     [SerializeField] GameObject Crasheffects;
+    [SerializeField] GameObject Skideffects;
+
     
     // CHECKPOINTS
     private int totalProgressCheckpoints; // Total number of progress checkpoints
@@ -113,9 +115,12 @@ public class PlayerController : MonoBehaviour
         {
             ApplyHandbrake();
             Debug.Log("Handbrake");
+            Skideffects.gameObject.SetActive(true);
         }
         else
         {
+            Skideffects.gameObject.SetActive(false);
+
             frontDriverW.brakeTorque = 0;
             frontPassengerW.brakeTorque = 0;
             rearDriverW.brakeTorque = 0;
