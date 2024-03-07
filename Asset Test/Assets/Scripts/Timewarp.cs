@@ -20,11 +20,11 @@ public class Timewarp : MonoBehaviour
 
     private void OnEnable() {
         timeWarpEffectHue.enabled = false;
-        EventScriptManager.onCollectInvincibility += ActiveTimewarp;
+        // EventScriptManager.onCollectInvincibility += ActiveTimewarp;
     }
 
     private void OnDisable() {
-        EventScriptManager.onCollectInvincibility -= ActiveTimewarp;
+        // EventScriptManager.onCollectInvincibility -= ActiveTimewarp;
     }
 
     private void OnTriggerEnter(Collider other)

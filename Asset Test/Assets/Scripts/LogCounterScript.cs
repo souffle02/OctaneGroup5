@@ -44,8 +44,10 @@ public class LogCounter : MonoBehaviour
 
     private void AddLog(Lore events) // argument should be EventScript event
     {
+        LogCounter thisScript = new LogCounter();
         Debug.Log("Log collection event heard");
         logCounts[CURR_LEVEL]++;
+        thisScript.LogCounts = logCounts;
         logCounter.SetText(logCounts[CURR_LEVEL].ToString() + "/" + logCountPerLevel[CURR_LEVEL].ToString());
     }
 }

@@ -10,9 +10,20 @@ public class CountdownTimer : MonoBehaviour
 
     private bool isCounting = false;
 
+    private Image powerupImage;
+
+    [SerializeField] private Sprite multiplierSprite;
+    [SerializeField] private Sprite timewarpSprite;
+    [SerializeField] private Sprite invincibilitySprite;
+    [SerializeField] private Sprite rocketSprite;
+
+
+
     private void OnEnable()
     {
         Timewarp.onPlayerCollectTimeWarpEvent += startTimeWarpCountdown;
+        Invincibility.onPlayerCollectInvincibilityEvent += startInvincibilityCountdown;
+        CoinMultiplier.onCollectCoinMultiplier += startMultiplierCountdown;
         // Event.onPlayerCollectCoinEvent += AddCoin;
         // TODO: might need to add an event for collecting a x2 powerup. need to create a canvas with the x2 icon
     }
@@ -20,12 +31,18 @@ public class CountdownTimer : MonoBehaviour
     private void OnDisable()
     {
         Timewarp.onPlayerCollectTimeWarpEvent -= startTimeWarpCountdown;
+        Invincibility.onPlayerCollectInvincibilityEvent -= startInvincibilityCountdown;
+        CoinMultiplier.onCollectCoinMultiplier -= startMultiplierCountdown;
+
+
         // Event.onPlayerCollectCoinEvent -= AddCoin;
     }
     private void Start()
     {
+        powerupImage = timerText.gameObject.GetComponentsInChildren<Image>()[0];
         // Initially hide the timer text
         timerText.enabled = false;
+        powerupImage.enabled = false;
     }
 
     private void Update()
@@ -40,7 +57,8 @@ public class CountdownTimer : MonoBehaviour
                 // Timer finished, reset
                 currentTime = 0f;
                 isCounting = false;
-                timerText.enabled = true;
+                timerText.enabled = false;
+                powerupImage.enabled = false;
             }
         }
     }
@@ -58,10 +76,24 @@ public class CountdownTimer : MonoBehaviour
         currentTime = duration;
         isCounting = true;
         timerText.enabled = true;
+        powerupImage.enabled = true;
     }
 
     public void startTimeWarpCountdown(Timewarp events)
     {
+        powerupImage.sprite = timewarpSprite;
+        StartCountdown(5f);
+    }
+
+    public void startInvincibilityCountdown(Invincibility events)
+    {
+        powerupImage.sprite = invincibilitySprite;
+        StartCountdown(5f);
+    }
+
+    public void startMultiplierCountdown(CoinMultiplier events)
+    {
+        powerupImage.sprite = multiplierSprite;
         StartCountdown(5f);
     }
 }

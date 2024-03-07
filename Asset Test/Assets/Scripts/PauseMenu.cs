@@ -7,9 +7,15 @@ public class PauseMenu : MonoBehaviour
 {
     public GameObject pauseMenu;
     public GameObject HUD;
-    void Start()
+
+    private void OnEnable()
     {
         EventScriptManager.pauseMenuEvent += pauseMenuToggle;
+    }
+
+    private void OnDisable()
+    {
+        EventScriptManager.pauseMenuEvent -= pauseMenuToggle;
     }
 
     void pauseMenuToggle(EventScriptManager pause)
