@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
     public float motorForce = 2500;
     public float brakeForce = 100;
     private float handbrakeForce = 1500f; // Use this for handbrake effect
-    private float steeringSensitivity = .8f; // Adjust this value to find the right responsiveness.
+    private float steeringSensitivity = 1.8f; // Adjust this value to find the right responsiveness.
 
     private float currentSteerAngle = 0f;
     public WheelFrictionCurve originalRearWFriction;
@@ -82,7 +82,7 @@ public class PlayerController : MonoBehaviour
         
         // Setup drift friction curves
         driftRearWFriction = originalRearWFriction;
-        driftRearWFriction.stiffness = 0.3f; // Adjust this value for desired drift behavior, lower values = more drift
+        driftRearWFriction.stiffness = 0.5f; // Adjust this value for desired drift behavior, lower values = more drift
 
         // Other initialization...
 
@@ -131,7 +131,7 @@ public class PlayerController : MonoBehaviour
         if (Mathf.Abs(m_rotateInput) < 0.01f)
         {
             // If there's no input, smoothly return the wheels to the center position (0 degrees).
-            currentSteerAngle = Mathf.Lerp(currentSteerAngle, 0, steeringSensitivity * 20 * Time.deltaTime);
+            currentSteerAngle = Mathf.Lerp(currentSteerAngle, 0, steeringSensitivity * 10 * Time.deltaTime);
         }
         else
         {
