@@ -7,9 +7,10 @@ public class LogCounter : MonoBehaviour
 {
     [SerializeField] private TMP_Text logCounter;
     public static LogCounter LogsInstance;
-    private List<int> logCounts = new List<int> { 0, 0, 0, 0 };
-    public int CURR_LEVEL = 0;
-    private List<int> logCountPerLevel = new List<int> { 2, 2, 2, 2 };
+    private List<int> logCounts = new List<int> { 0, 0, 0, 0 }; // 1 - indexed
+    // public int CURR_LEVEL = 0;
+    public int currLevel;
+    private List<int> logCountPerLevel = new List<int> { 0, 2, 2, 2 };
 
     private void OnEnable()
     {
@@ -30,8 +31,9 @@ public class LogCounter : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log(logCounts[0]);
-        logCounter.SetText(logCounts[CURR_LEVEL].ToString() + "/" + logCountPerLevel[CURR_LEVEL].ToString());
+        currLevel = PlayerController.PlayerInstance.currLevel;
+        Debug.Log("CURRLEVEL:" + currLevel);
+        logCounter.SetText(logCounts[currLevel].ToString() + "/" + logCountPerLevel[currLevel].ToString());
     }
 
     // Public property to access the data
@@ -46,8 +48,8 @@ public class LogCounter : MonoBehaviour
     {
         LogCounter thisScript = new LogCounter();
         Debug.Log("Log collection event heard");
-        logCounts[CURR_LEVEL]++;
+        logCounts[currLevel]++;
         thisScript.LogCounts = logCounts;
-        logCounter.SetText(logCounts[CURR_LEVEL].ToString() + "/" + logCountPerLevel[CURR_LEVEL].ToString());
+        logCounter.SetText(logCounts[currLevel].ToString() + "/" + logCountPerLevel[currLevel].ToString());
     }
 }

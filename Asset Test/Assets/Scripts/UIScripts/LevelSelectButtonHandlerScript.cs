@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
+using Unity.VisualScripting;
 
 public class LevelSelectButtonHandlerScript : MonoBehaviour
 {
@@ -14,22 +15,39 @@ public class LevelSelectButtonHandlerScript : MonoBehaviour
     [SerializeField] TMP_Text lore1Text;
     [SerializeField] TMP_Text lore2Text;
     [SerializeField] TMP_Text lore3Text;
+    [SerializeField] Image level2Blocker;
+    [SerializeField] Image level3Blocker;
+
+    private string blockerName;
 
     private List<int> loreCount;
-    private int CURR_LEVEL;
+    public int currLevel;
 
 
     void Start()
     {
+
         // Add hover event triggers to buttons
-        AddHoverEventTrigger(level1Button, lore1Text, 0);
-        AddHoverEventTrigger(level2Button, lore2Text, 1);
-        AddHoverEventTrigger(level3Button, lore3Text, 2);
+        AddHoverEventTrigger(level1Button, lore1Text, 1);
+        AddHoverEventTrigger(level2Button, lore2Text, 2);
+        AddHoverEventTrigger(level3Button, lore3Text, 3);
 
         // Add click event listeners to buttons
         level1Button.onClick.AddListener(ClickedLevel1);
         level2Button.onClick.AddListener(ClickedLevel2);
         level3Button.onClick.AddListener(ClickedLevel3);
+
+        currLevel = Level1EndScript.level1endHandler.currLevel;
+        Debug.Log("CURRENT BLOCKED LEVEL: " + currLevel);
+        if (currLevel == 2)
+        {
+            level2Blocker.enabled = false;
+        }
+        else if (currLevel == 3)
+        {
+            level2Blocker.enabled = false;
+            level3Blocker.enabled = false;
+        }   
     }
 
     void AddHoverEventTrigger(Button button, TMP_Text loreText, int levelIndex)

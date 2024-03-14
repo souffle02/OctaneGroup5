@@ -14,8 +14,9 @@ public class LevelSelectCoinsLives : MonoBehaviour
 
     private void Start()
     {
-        coinsCount = CoinCounterScript.CoinsInstance.coinCount;
-        livesCount = LivesCounterScript.LivesInstance.livesCount;
+        coinsCount = CoinCounterScript.coinCount;
+        // livesCount = LivesCounterScript.LivesInstance.livesCount;
+        livesCount = LivesCounterScript.livesCount;
         coinText.SetText(coinsCount.ToString());
         livesText.SetText(livesCount.ToString());
     }

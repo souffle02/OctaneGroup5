@@ -6,7 +6,7 @@ using UnityEngine;
 public class LivesCounterScript : MonoBehaviour
 {
     [SerializeField] private TMP_Text livesCounter;
-    public int livesCount = 3;
+    public static int livesCount = 3;
     // private bool invincible;  // may not need the invincibility section since a script was made for it already
     public static LivesCounterScript LivesInstance;
 
@@ -37,7 +37,15 @@ public class LivesCounterScript : MonoBehaviour
     {
         if (LivesInstance == null)
         {
+            // If this is the first instance, set it as the instance
             LivesInstance = this;
+            // Prevent this object from being destroyed when loading new scenes
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            // If another instance already exists, destroy this one
+            Destroy(gameObject);
         }
     }
     /*

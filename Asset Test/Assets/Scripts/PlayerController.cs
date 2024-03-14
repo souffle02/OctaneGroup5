@@ -7,9 +7,9 @@ public class PlayerController : MonoBehaviour
 {
 
     [SerializeField] private TMP_Text progressText;
-    public int coins = 0; // coins collected by the player
-    public int lives = 3; // Starting lives for player
-    private int currLevel = 1;
+    // public int coins = 0; // coins collected by the player
+    // public int lives = 3; // Starting lives for player
+    public int currLevel = 1;
 
     // DRIVING
     public WheelCollider frontDriverW, frontPassengerW, rearDriverW, rearPassengerW;
@@ -50,9 +50,25 @@ public class PlayerController : MonoBehaviour
 
     // EVENTS
     public static event Action<PlayerController> onPlayerLoseLifeEvent;
+    public static PlayerController PlayerInstance;
+
 
     private void Awake()
     {
+        PlayerInstance = this;
+        /* if (PlayerInstance == null)
+        {
+            // If this is the first instance, set it as the instance
+            PlayerInstance = this;
+            // Prevent this object from being destroyed when loading new scenes
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            // If another instance already exists, destroy this one
+            Destroy(gameObject);
+        } */
+
         rb = GetComponent<Rigidbody>();
         if (rb == null) Debug.LogError("Rigidbody component missing from this GameObject");
 
@@ -224,14 +240,17 @@ public class PlayerController : MonoBehaviour
             if(currLevel == 1)
             {
                 GameManager.Instance.Level1End();
+                // currLevel++;
             }
             else if(currLevel == 2)
             {
                 GameManager.Instance.Level2End();
+                // currLevel++;
             }
             else if(currLevel == 3)
             {
                 GameManager.Instance.Level3End();
+                // currLevel++;
             }
             // GameManager.Instance.LevelEnd();
         }
@@ -271,8 +290,8 @@ public class PlayerController : MonoBehaviour
 
     public void AddLife()
     { // DONT HANDLE ADDLIFE LOGIC IN THIS SCRIPT. this is still here in case we need to revert any changes
-        lives += 1;
-        Debug.Log("Life gained! Remaining lives: " + lives);
+        // lives += 1;
+        // Debug.Log("Life gained! Remaining lives: " + lives);
         // LivesCounterScript.LivesInstance.UpdateLives();
     }
 

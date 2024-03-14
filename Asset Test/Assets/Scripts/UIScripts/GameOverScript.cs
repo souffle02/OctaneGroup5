@@ -12,7 +12,8 @@ public class GameOverScript : MonoBehaviour
     private int coinsCount;
     private int livesCount;
     private List<int> loreCount;
-    private int CURR_LEVEL;
+    public int currLevel;
+    // private int CURR_LEVEL;
 
     private void Start()
     {
@@ -20,14 +21,16 @@ public class GameOverScript : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
 
-        coinsCount = CoinCounterScript.CoinsInstance.coinCount;
-        livesCount = LivesCounterScript.LivesInstance.livesCount;
+        coinsCount = CoinCounterScript.coinCount;
+        // livesCount = LivesCounterScript.LivesInstance.livesCount;
+        livesCount = LivesCounterScript.livesCount;
         loreCount = LogCounter.LogsInstance.LogCounts;
-        CURR_LEVEL = LogCounter.LogsInstance.CURR_LEVEL;
+        currLevel = PlayerController.PlayerInstance.currLevel;
+        // CURR_LEVEL = LogCounter.LogsInstance.CURR_LEVEL;
 
         coinsText.SetText(coinsCount.ToString());
         livesText.SetText(livesCount.ToString());
-        loreText.SetText(loreCount[CURR_LEVEL].ToString() + " / 2");
+        loreText.SetText(loreCount[currLevel-1].ToString() + " / 2");
     }
 
     public void onButtonClick()

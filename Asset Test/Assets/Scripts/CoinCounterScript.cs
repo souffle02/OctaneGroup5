@@ -8,7 +8,7 @@ public class CoinCounterScript : MonoBehaviour
 {
     [SerializeField] private TMP_Text coinCounter;
     public static CoinCounterScript CoinsInstance;
-    public int coinCount = 0;
+    public static int coinCount = 0;
     private Boolean doubleCoin = false;
 
     // TODO: add double coin logic and to HUD
@@ -31,7 +31,19 @@ public class CoinCounterScript : MonoBehaviour
 
     public void Awake()
     {
-        CoinsInstance = this;
+        // CoinsInstance = this;
+        if (CoinsInstance == null)
+        {
+            // If this is the first instance, set it as the instance
+            CoinsInstance = this;
+            // Prevent this object from being destroyed when loading new scenes
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            // If another instance already exists, destroy this one
+            Destroy(gameObject);
+        }
     }
     private void Start()
     {
