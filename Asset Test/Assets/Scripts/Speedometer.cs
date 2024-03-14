@@ -29,7 +29,7 @@ public class Speedometer : MonoBehaviour
         // ** The speed must be clamped by the car controller **
         // Debug.Log(target.velocity.magnitude);
         // Debug.Log(target.velocity);
-        speed = target.velocity.magnitude * 3.6f;
+        speed = target.velocity.magnitude * 3.6f * 3f; // final 3f used for speed scaling
 
         if (speedLabel != null)
             speedLabel.text = ((int)speed) + " km/h";

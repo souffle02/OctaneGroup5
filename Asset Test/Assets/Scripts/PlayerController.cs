@@ -46,6 +46,7 @@ public class PlayerController : MonoBehaviour
     private bool isInvincible = false; // If has invincible powerup
     // private bool coinsDoubled = false; // If has coin multiplier
     private bool timewarpActive = false; // If has timewarp powerup
+    private bool haungsMode = false;
 
     // EVENTS
     public static event Action<PlayerController> onPlayerLoseLifeEvent;
@@ -120,6 +121,25 @@ public class PlayerController : MonoBehaviour
             frontPassengerW.brakeTorque = 0;
             rearDriverW.brakeTorque = 0;
             rearPassengerW.brakeTorque = 0;
+        }
+
+        if (haungsMode)
+        {
+            isInvincible = true;
+        }
+
+        // HAUNGS MODE
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            if (!haungsMode)
+            {
+                haungsMode = true;
+            }
+            else
+            {
+                haungsMode = false;
+                isInvincible = false;
+            }
         }
     }
 
