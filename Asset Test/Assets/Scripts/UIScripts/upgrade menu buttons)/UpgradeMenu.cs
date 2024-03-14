@@ -6,11 +6,13 @@ using TMPro;
 
 public class UpgradeMenu : MonoBehaviour
 {
-    public int coins;
+    public static int coins;
     [SerializeField] public TMP_Text coinText;
 
     public void Start() {
-        coins = 1000;
+        coins = 1000;  // for testing purposes
+
+        // coins = CoinCounterScript.coinCount;
         coinText.text = coins + "";
     }
 

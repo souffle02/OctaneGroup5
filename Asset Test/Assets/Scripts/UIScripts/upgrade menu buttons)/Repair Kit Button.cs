@@ -6,21 +6,20 @@ using TMPro;
 public class RepairKitButton : MonoBehaviour
 {
     [SerializeField] private TMP_Text repairKitEffects;
-    private int c;
     private int upgradeLevel;
+    private int maxlevel = 2;
+    private bool ismaxlevel;
+
     private int coinsRequired;
     private int livesRestored;
-    public GameObject menuCoins;
     
     // Start is called before the first frame update
     void Start()
     {
-        menuCoins = GameObject.Find("menuItems");
-        UpgradeMenu up = menuCoins.GetComponent<UpgradeMenu>();
-        c = up.coins;
-
         upgradeLevel = 1;
-        coinsRequired = 15;
+        ismaxlevel = false;
+        coinsRequired = 250;
+
         livesRestored = 1;  // initial lives restored is 1
         repairKitEffects.text = "Current: " + livesRestored + " life" + 
             "\nNext: " + (livesRestored + 1) + " lives" + 
@@ -28,23 +27,26 @@ public class RepairKitButton : MonoBehaviour
     }
 
     public void UpgradeRepairKit() {
-        if (c >= coinsRequired) {
-            upgradeLevel += 1;
-            SubtractCoins(coinsRequired);
-            if (upgradeLevel < 2) {
+        if (UpgradeMenu.coins >= coinsRequired) {
+            if (!ismaxlevel) {
+                upgradeLevel += 1;
+                UpgradeMenu.coins -= coinsRequired;
+                Debug.Log("Coins: " + UpgradeMenu.coins);
+
                 livesRestored += 1;
-                repairKitEffects.text = "Current: " + livesRestored + " lives" + 
-                    "\nNext: " + (livesRestored + 1) + " lives" + 
-                    "\nCoins for next level: " + coinsRequired;
-            } else {
-                repairKitEffects.text = "Current: " + (livesRestored + 1) + " lives" + 
-                    "\nMAX LEVEL";
+                repairKitEffects.text = "Current: " + livesRestored + " seconds" + 
+                    "\nNext: " + (livesRestored + 1) + " seconds" + 
+                    "\nUpgrade cost: " + coinsRequired + " coins";
+            }
+            
+            if (upgradeLevel == maxlevel) {
+                ismaxlevel = true;
+            }
+
+            if (ismaxlevel) {
+                repairKitEffects.text = "Current: " + livesRestored + " seconds" + 
+                        "\nMAX LEVEL";
             }
         }
-    }
-
-    private void SubtractCoins(int cost) {
-        UpgradeMenu up = menuCoins.GetComponent<UpgradeMenu>();
-        up.coinText.text = (c - cost) + "";
     }
 }
