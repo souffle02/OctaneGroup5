@@ -708,12 +708,14 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+<<<<<<< Updated upstream
 --- !u!114 &949666448 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 9629531364870503, guid: b55716e0448d81148a1ba8f6fe6f9db2, type: 3}
   m_PrefabInstance: {fileID: 949666444}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
+=======
 --- !u!1 &1089864538
 GameObject:
   m_ObjectHideFlags: 0
@@ -941,11 +943,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1510266084}
+>>>>>>> Stashed changes
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+<<<<<<< Updated upstream
 --- !u!114 &949666449 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 31222924405177917, guid: b55716e0448d81148a1ba8f6fe6f9db2, type: 3}
@@ -957,6 +961,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+=======
   m_Material: {fileID: 0}
   m_Color: {r: 0.56078434, g: 0.56078434, b: 0.56078434, a: 0}
   m_RaycastTarget: 1
@@ -983,6 +988,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1510266084}
   m_CullTransparentMesh: 1
+>>>>>>> Stashed changes
 --- !u!1001 &1835018169
 PrefabInstance:
   m_ObjectHideFlags: 0

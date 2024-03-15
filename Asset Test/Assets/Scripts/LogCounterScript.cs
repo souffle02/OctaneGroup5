@@ -12,6 +12,9 @@ public class LogCounter : MonoBehaviour
     // public int CURR_LEVEL = 0;
     public int currLevel;
     private List<int> logCountPerLevel = new List<int> { 0, 2, 2, 2 };
+    private List<int> logCounts = new List<int> { 0, 0, 0, 0 };
+    public int CURR_LEVEL = 0;
+    private List<int> logCountPerLevel = new List<int> { 0, 2, 2, 2 };
 
     private string[] loreStories = new string[]
     {
