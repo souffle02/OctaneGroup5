@@ -45,11 +45,8 @@ public class PlayerController : MonoBehaviour
 
     private bool isInvincible = false; // If has invincible powerup
     // private bool coinsDoubled = false; // If has coin multiplier
-<<<<<<< Updated upstream
     private bool timewarpActive = false; // If has timewarp powerup
     private bool haungsMode = false;
-=======
->>>>>>> Stashed changes
 
     // EVENTS
     public static event Action<PlayerController> onPlayerLoseLifeEvent;

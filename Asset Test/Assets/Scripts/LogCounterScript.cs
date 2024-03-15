@@ -8,12 +8,10 @@ public class LogCounter : MonoBehaviour
     [SerializeField] private TMP_Text logCounter;
     [SerializeField] private TMP_Text loreText;
     public static LogCounter LogsInstance;
-<<<<<<< Updated upstream
     private List<int> logCounts = new List<int> { 0, 0, 0, 0 }; // 1 - indexed
     // public int CURR_LEVEL = 0;
     public int currLevel;
     private List<int> logCountPerLevel = new List<int> { 0, 2, 2, 2 };
-=======
     private List<int> logCounts = new List<int> { 0, 0, 0, 0 };
     public int CURR_LEVEL = 0;
     private List<int> logCountPerLevel = new List<int> { 0, 2, 2, 2 };
@@ -27,7 +25,6 @@ public class LogCounter : MonoBehaviour
         "In the city's heart, a factory once produced the machines of war that led to its downfall. Now, it stands silent, but for a single, operational robot. Programmed for maintenance, it continues its tasks, unaware its purpose has long vanished. It's a somber reflection on the automation that once promised progress but brought ruin instead.",
         "Hidden within the city is an oasis, a small, clean water source surrounded by vegetation. It's guarded by a community of survivors who discovered it early on. The oasis is a rare piece of paradise, a reminder of the world before the fall. Stories say the community is working on a plan to purify more water sources, hoping to rebuild what was lost"
     };
->>>>>>> Stashed changes
 
     private void OnEnable()
     {
@@ -48,16 +45,9 @@ public class LogCounter : MonoBehaviour
 
     private void Start()
     {
-<<<<<<< Updated upstream
         currLevel = PlayerController.PlayerInstance.currLevel;
         Debug.Log("CURRLEVEL:" + currLevel);
         logCounter.SetText(logCounts[currLevel].ToString() + "/" + logCountPerLevel[currLevel].ToString());
-=======
-        Debug.Log(logCounts[0]);
-        logCounter.SetText(logCounts[CURR_LEVEL].ToString() + "/" + logCountPerLevel[CURR_LEVEL].ToString());
-
-
->>>>>>> Stashed changes
     }
 
     // Public property to access the data
