@@ -45,8 +45,11 @@ public class PlayerController : MonoBehaviour
 
     private bool isInvincible = false; // If has invincible powerup
     // private bool coinsDoubled = false; // If has coin multiplier
+<<<<<<< Updated upstream
     private bool timewarpActive = false; // If has timewarp powerup
     private bool haungsMode = false;
+=======
+>>>>>>> Stashed changes
 
     // EVENTS
     public static event Action<PlayerController> onPlayerLoseLifeEvent;
@@ -350,18 +353,6 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Deactivated coin multiplier");
     }
     */
-
-    public void ActivateTimewarp()
-    {
-        timewarpActive = true;
-        countdownTimer.StartCountdown(5f);
-        Debug.Log("Activated Timewarp");
-    }
-
-    public void DeactivateTimewarp() {
-        timewarpActive = false;
-        Debug.Log("Deactivated Timewarp");
-    }
 
     private void TryShoot()
     {
