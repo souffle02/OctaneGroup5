@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -6,42 +7,83 @@ using UnityEngine;
 public class CoinCounterScript : MonoBehaviour
 {
     [SerializeField] private TMP_Text coinCounter;
-    private int coinCount = 0;
-    private bool coinsDoubled;
+    public static CoinCounterScript CoinsInstance;
+    public static int coinCount = 0;
+    private Boolean doubleCoin = false;
+
+    // TODO: add double coin logic and to HUD
+    // PlayerController collectibleCount = FindObjectOfType<PlayerController>(); // probably dont need this.
 
     private void OnEnable()
     {
-        EventScriptManager.onPlayerCollectCoinEvent += AddCoin;
-        PowerupCollectionManager.onCollectCoinMultiplier += ActiveCoinMultiplier;
+        Coin.onPlayerCollectCoinEvent += AddCoin;
+        CoinMultiplier.onCollectCoinMultiplier += DoubleCoinTimer;
         // Event.onPlayerCollectCoinEvent += AddCoin;
         // TODO: might need to add an event for collecting a x2 powerup. need to create a canvas with the x2 icon
     }
 
     private void OnDisable()
     {
-        EventScriptManager.onPlayerCollectCoinEvent -= AddCoin;
-        PowerupCollectionManager.onCollectCoinMultiplier -= ActiveCoinMultiplier;
+        Coin.onPlayerCollectCoinEvent -= AddCoin;
+        CoinMultiplier.onCollectCoinMultiplier -= DoubleCoinTimer;
         // Event.onPlayerCollectCoinEvent -= AddCoin;
     }
 
+    public void Awake()
+    {
+        // CoinsInstance = this;
+        if (CoinsInstance == null)
+        {
+            // If this is the first instance, set it as the instance
+            CoinsInstance = this;
+            // Prevent this object from being destroyed when loading new scenes
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            // If another instance already exists, destroy this one
+            Destroy(gameObject);
+        }
+    }
     private void Start()
     {
+        
         coinCounter.SetText(coinCount.ToString());
-        coinsDoubled = false;
     }
 
-    private void AddCoin(EventScriptManager events) // argument should be EventScript event
+    /*
+    public void UpdateCoins()
+    {
+        coinCount = collectibleCount.coins;
+        coinCounter.SetText(coinCount.ToString());
+    }
+    */
+
+    public void AddCoin(Coin events) // argument should be EventScript event
     {
         Debug.Log("Coin collection event heard");
-        coinCount++;
-        if (coinsDoubled == true) {
+        if(doubleCoin)
+        {
+            coinCount += 2;
+        }
+        else
+        {
             coinCount++;
         }
+
         coinCounter.SetText(coinCount.ToString());
     }
 
-    private void ActiveCoinMultiplier(PowerupCollectionManager powerup) {
-        Debug.Log("Coin multiplier active");
-        coinsDoubled = true;
+    public void DoubleCoinTimer(CoinMultiplier events) {
+        doubleCoin = true;
+        Debug.Log("double coin activated");
+        StartCoroutine(ResetDoubleCoin());
+    }
+
+    private IEnumerator ResetDoubleCoin()
+    {
+        yield return new WaitForSeconds(5f); // Wait for 5 seconds
+        doubleCoin = false; // Reset doubleCoin to false
+        Debug.Log("double coin deactivated");
     }
 }

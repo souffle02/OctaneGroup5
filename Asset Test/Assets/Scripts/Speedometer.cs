@@ -27,10 +27,9 @@ public class Speedometer : MonoBehaviour
     {
         // 3.6f to convert in kilometers
         // ** The speed must be clamped by the car controller **
-        // TODO: something is wrong with the speed
         // Debug.Log(target.velocity.magnitude);
         // Debug.Log(target.velocity);
-        speed = target.velocity.magnitude * 3.6f;
+        speed = target.velocity.magnitude * 3.6f * 3f; // final 3f used for speed scaling
 
         if (speedLabel != null)
             speedLabel.text = ((int)speed) + " km/h";

@@ -4,9 +4,10 @@ using UnityEngine.SceneManagement;
 
 public class TitleScreen : MonoBehaviour
 {
+    [SerializeField] GameObject levelSelectCanvas;
 
     public void OpenScene()
     {
-        SceneManager.LoadScene("Level Selector");
+        levelSelectCanvas.SetActive(true);
     }
 }

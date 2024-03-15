@@ -7,9 +7,6 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-    [SerializeField] public TMP_Text coinCounter;
-    [SerializeField] public TMP_Text logCounter;
-    [SerializeField] public TMP_Text livesCounter;
 
     // Start is called before the first frame update
     void Start()
@@ -20,9 +17,19 @@ public class GameManager : MonoBehaviour
         }
     }
 
-
-    public void LevelEnd()
+    public void Level1End()
     {
-        SceneManager.LoadScene("Level End");
+        SceneManager.LoadScene("Level1End");
+    }
+    public void Level2End()
+    {
+        SceneManager.LoadScene("Level2End");
+    }
+    public void Level3End()
+    {
+        SceneManager.LoadScene("Level3End");
+    }
+    public void GameOver() {
+        SceneManager.LoadScene("Game Over");
     }
 }

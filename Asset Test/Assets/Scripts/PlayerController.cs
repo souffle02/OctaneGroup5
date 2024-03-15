@@ -1,23 +1,29 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
+using System;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private TMP_Text progressText;
-    public static float lives = 3; // Starting lives for player
 
+    [SerializeField] private TMP_Text progressText;
+    // public int coins = 0; // coins collected by the player
+    // public int lives = 3; // Starting lives for player
+    public int currLevel = 1;
+
+    // DRIVING
     public WheelCollider frontDriverW, frontPassengerW, rearDriverW, rearPassengerW;
     public Transform frontDriverT, frontPassengerT, rearDriverT, rearPassengerT;
     private float m_steeringAngle;
-    public float maxSteerAngle = 10;
-    public float motorForce = 2000;
+    public float maxSteerAngle = 20;
+    public float motorForce = 2500;
     public float brakeForce = 100;
     private float handbrakeForce = 1500f; // Use this for handbrake effect
-    private float steeringSensitivity = 2f; // Adjust this value to find the right responsiveness.
+    private float steeringSensitivity = .8f; // Adjust this value to find the right responsiveness.
 
     private float currentSteerAngle = 0f;
-
+    public WheelFrictionCurve originalRearWFriction;
+    public WheelFrictionCurve driftRearWFriction;
 
     private Rigidbody rb;
     private PlayerInput inputActions;
@@ -25,18 +31,44 @@ public class PlayerController : MonoBehaviour
     private float rotateInput;
     private bool handbrakeActive = false; // Handbrake flag
     private float m_rotateInput; // Add this to capture the rotate input
-
+    [SerializeField] GameObject Crasheffects;
     
-
+    // CHECKPOINTS
     private int totalProgressCheckpoints; // Total number of progress checkpoints
     private int currentProgress; // Current progress count
     private int currentPercentage; // Current progress percentage
 
+    // POWERUPS (lots of this prob gotta be refactored to respective scripts for the events
+    public CountdownTimer countdownTimer;
     public GameObject rocketLauncherPrefab; // Rocket Launcher
     private bool canShoot = false; // If has rocket launcher powerup
 
+    private bool isInvincible = false; // If has invincible powerup
+    // private bool coinsDoubled = false; // If has coin multiplier
+    private bool timewarpActive = false; // If has timewarp powerup
+    private bool haungsMode = false;
+
+    // EVENTS
+    public static event Action<PlayerController> onPlayerLoseLifeEvent;
+    public static PlayerController PlayerInstance;
+
+
     private void Awake()
     {
+        PlayerInstance = this;
+        /* if (PlayerInstance == null)
+        {
+            // If this is the first instance, set it as the instance
+            PlayerInstance = this;
+            // Prevent this object from being destroyed when loading new scenes
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            // If another instance already exists, destroy this one
+            Destroy(gameObject);
+        } */
+
         rb = GetComponent<Rigidbody>();
         if (rb == null) Debug.LogError("Rigidbody component missing from this GameObject");
 
@@ -55,8 +87,22 @@ public class PlayerController : MonoBehaviour
 
         inputActions.Player.Shoot.performed += ctx => TryShoot();
      // Setup rotate action listener
+        inputActions.Player.Move.performed += ctx => moveInput = ctx.ReadValue<Vector2>();
+        inputActions.Player.Move.canceled += ctx => moveInput = Vector2.zero;
+
         inputActions.Player.Rotate.performed += ctx => m_rotateInput = ctx.ReadValue<float>();
         inputActions.Player.Rotate.canceled += ctx => m_rotateInput = 0;
+
+
+        // Setup original friction curves
+        originalRearWFriction = rearDriverW.sidewaysFriction;
+        
+        // Setup drift friction curves
+        driftRearWFriction = originalRearWFriction;
+        driftRearWFriction.stiffness = 0.3f; // Adjust this value for desired drift behavior, lower values = more drift
+
+        // Other initialization...
+
     }
 
     private void OnEnable()
@@ -92,6 +138,25 @@ public class PlayerController : MonoBehaviour
             rearDriverW.brakeTorque = 0;
             rearPassengerW.brakeTorque = 0;
         }
+
+        if (haungsMode)
+        {
+            isInvincible = true;
+        }
+
+        // HAUNGS MODE
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            if (!haungsMode)
+            {
+                haungsMode = true;
+            }
+            else
+            {
+                haungsMode = false;
+                isInvincible = false;
+            }
+        }
     }
 
     private void Steer()
@@ -102,7 +167,7 @@ public class PlayerController : MonoBehaviour
         if (Mathf.Abs(m_rotateInput) < 0.01f)
         {
             // If there's no input, smoothly return the wheels to the center position (0 degrees).
-            currentSteerAngle = Mathf.Lerp(currentSteerAngle, 0, steeringSensitivity * 10 * Time.deltaTime);
+            currentSteerAngle = Mathf.Lerp(currentSteerAngle, 0, steeringSensitivity * 20 * Time.deltaTime);
         }
         else
         {
@@ -117,9 +182,10 @@ public class PlayerController : MonoBehaviour
     private void Accelerate()
     {
         
-        rearDriverW.motorTorque =  motorForce;
-        rearPassengerW.motorTorque =  motorForce;
-        
+        float force = motorForce * moveInput.y;
+        rearDriverW.motorTorque = force;
+        rearPassengerW.motorTorque = force;
+    
 
     }
 
@@ -151,23 +217,46 @@ public class PlayerController : MonoBehaviour
 
     private void ToggleHandbrake(bool active)
     {
-        // Reset drift time when handbrake is activated
-        handbrakeActive = active;
-        handbrakeForce = active ? brakeForce : 0f;
+    handbrakeActive = active;
     
+    if (active)
+    {
+        // Apply drift friction curves
+        ApplyDriftFriction();
+    }
+    else
+    {
+        // Revert to original friction curves
+        RevertOriginalFriction();
+    }
     }
 
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.tag);
+        //Debug.Log(other.tag);
         if (other.CompareTag("Finish"))
         {
-            GameManager.Instance.LevelEnd();
+            if(currLevel == 1)
+            {
+                GameManager.Instance.Level1End();
+                // currLevel++;
+            }
+            else if(currLevel == 2)
+            {
+                GameManager.Instance.Level2End();
+                // currLevel++;
+            }
+            else if(currLevel == 3)
+            {
+                GameManager.Instance.Level3End();
+                // currLevel++;
+            }
+            // GameManager.Instance.LevelEnd();
         }
         if (other.CompareTag("Progress"))
         {
-            Debug.Log("Calculating stuff");
+            // Debug.Log("Calculating stuff");
             currentProgress++;
             CalculatePercentage();
         }
@@ -178,21 +267,47 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.collider.CompareTag("Obstacle"))
         {
-            LoseLife();
+            if(!isInvincible)LoseLife();
             Destroy(collision.gameObject);
         }
     }
 
     private void LoseLife() //needs to have an update for add life, disconnect from livescounterscript.fs
     {
-        lives -= 1; // Subtract one life
-        Debug.Log("Life lost! Remaining lives: " + lives);
-        LivesCounterScript.LivesInstance.UpdateLives();
-        if (lives <= 0)
+        // lives -= 1; // Subtract one life
+        Debug.Log("Life lost!");
+        onPlayerLoseLifeEvent?.Invoke(this);
+        // LivesCounterScript.LivesInstance.UpdateLives();
+        Crasheffects.gameObject.SetActive(true);
+        /*
+        if (lives <= 0) // DONT HANDLE GAMEOVER LOGIC IN THIS SCRIPT. this is still here in case we need to revert any changes
         {
             Debug.Log("Game Over!");
             // Handle game over logic here
         }
+        */
+    }
+
+    public void AddLife()
+    { // DONT HANDLE ADDLIFE LOGIC IN THIS SCRIPT. this is still here in case we need to revert any changes
+        // lives += 1;
+        // Debug.Log("Life gained! Remaining lives: " + lives);
+        // LivesCounterScript.LivesInstance.UpdateLives();
+    }
+
+    /* public void AddCoin()
+    { // DONT HANDLE ADDCOIN LOGIC IN THIS SCRIPT. this is still here in case we need to revert any changes
+        if (coinsDoubled) {
+            coins += 2;
+            Debug.Log("Coin (with multiplier) collected");
+        } else {
+            coins += 1;
+            Debug.Log("Coin collected");
+        }
+    } */
+
+    public int getLevel() {
+        return currLevel;
     }
 
     private void CalculatePercentage()
@@ -208,24 +323,64 @@ public class PlayerController : MonoBehaviour
 
     public void EnableShooting()
     {
+        Debug.Log("Rocket launcher obtained");
         canShoot = true; // Player can now shoot
     }
 
+    public void ActivateInvincibility()
+    {
+        isInvincible = true;
+        Debug.Log("Activated Invincibility");
+    }
+
+    public void DeactivateInvincibility() {
+        isInvincible = false;
+        Debug.Log("Deactivated Invincibility");
+    }
+
+    /*
+    public void ActivateCoinMultiplier()
+    {
+        coinsDoubled = true;
+        Debug.Log("Activated coin multiplier");
+    }
+
+    public void DeactivateCoinMultiplier() {
+        coinsDoubled = false;
+        Debug.Log("Deactivated coin multiplier");
+    }
+    */
+
     private void TryShoot()
     {
-        print("no power up");
         if (canShoot)
         {
             ShootProjectile();
-            print("shot");
+            Debug.Log("Rocket Fired");
         }
     }
 
     private void ShootProjectile()
     {
-        Vector3 spawnPosition = transform.position + transform.forward * 2f; // Adjust '2f' as needed to position above the car
+        Vector3 spawnPosition = transform.position + transform.forward * 2f;
         Instantiate(rocketLauncherPrefab, spawnPosition, transform.rotation);
         canShoot = false;
+    }
+
+    private void ApplyDriftFriction()
+    {
+        rearDriverW.sidewaysFriction = driftRearWFriction;
+        rearPassengerW.sidewaysFriction = driftRearWFriction;
+        frontDriverW.sidewaysFriction = driftRearWFriction;
+        frontPassengerW.sidewaysFriction = driftRearWFriction;
+
+
+    }
+
+    private void RevertOriginalFriction()
+    {
+        rearDriverW.sidewaysFriction = originalRearWFriction;
+        rearPassengerW.sidewaysFriction = originalRearWFriction;
     }
         
 }

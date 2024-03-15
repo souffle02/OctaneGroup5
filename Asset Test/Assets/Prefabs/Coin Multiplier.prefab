@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3840555829573888296}
   - component: {fileID: 5381068579628113888}
   - component: {fileID: -3174323626438485214}
+  - component: {fileID: -1834259338634626592}
   m_Layer: 0
   m_Name: Coin Multiplier
   m_TagString: CoinMultiplier
@@ -118,5 +119,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 566c411fe9415a94eb4ef44b4fabe153, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spinSpeed: 0
+  _spinSpeed: 50
   speed: 1
+--- !u!114 &-1834259338634626592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8903913800315306752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8514f5974beeb942b54801f1f3b6acc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
