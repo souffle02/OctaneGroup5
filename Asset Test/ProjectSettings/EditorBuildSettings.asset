@@ -29,4 +29,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 99702a78c4f8bda479159f2db9033d29
+<<<<<<< Updated upstream
+=======
+  - enabled: 1
+    path: Assets/Scenes/Game Over.unity
+    guid: 004fd148dbdf24f8ba24e65bb2452ca7
+  - enabled: 1
+    path: Assets/Scenes/LoreScene.unity
+    guid: 57ccb54a8918146b8aa0775c1c32d807
+>>>>>>> Stashed changes
   m_configObjects: {}
