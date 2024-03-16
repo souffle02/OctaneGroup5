@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 using Unity.VisualScripting;
 using System;
 
-public class Level3EndScript : MonoBehaviour
+public class Level2EndScript : MonoBehaviour
 {
     [SerializeField] private TMP_Text coinsText;
     [SerializeField] private TMP_Text livesText;
@@ -18,11 +18,11 @@ public class Level3EndScript : MonoBehaviour
     // private int CURR_LEVEL;
     public int currLevel;
 
-    public static Level3EndScript level3endHandler;
+    public static Level2EndScript level2endHandler;
 
     public void Awake()
     {
-        level3endHandler = this;
+        level2endHandler = this;
     }
 
 
@@ -48,4 +48,8 @@ public class Level3EndScript : MonoBehaviour
         Debug.Log("NEW CURRLEVEL: " + currLevel);
     }
 
+    /* public void onButtonClick() {
+        Debug.Log("Loading scene: Level 2");
+        SceneManager.LoadScene("Level 2");
+    } */
 }
