@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
     public Transform frontDriverT, frontPassengerT, rearDriverT, rearPassengerT;
     private float m_steeringAngle;
     public float maxSteerAngle = 20;
-    public float motorForce = 8800;
+    public float motorForce = 400;
     public float brakeForce = 100;
     private float handbrakeForce = 1500f; // Use this for handbrake effect
     private float steeringSensitivity = .8f; // Adjust this value to find the right responsiveness.
@@ -101,7 +101,6 @@ public class PlayerController : MonoBehaviour
         driftRearWFriction = originalRearWFriction;
         driftRearWFriction.stiffness = 0.3f; // Adjust this value for desired drift behavior, lower values = more drift
 
-        // Other initialization...
 
     }
 
@@ -185,6 +184,9 @@ public class PlayerController : MonoBehaviour
         float force = motorForce * moveInput.y;
         rearDriverW.motorTorque = force;
         rearPassengerW.motorTorque = force;
+
+        frontDriverW.motorTorque = force;
+        frontPassengerW.motorTorque = force;
     
 
     }
