@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
     public Transform frontDriverT, frontPassengerT, rearDriverT, rearPassengerT;
     private float m_steeringAngle;
     public float maxSteerAngle = 20;
-    public float motorForce = 2500;
+    public float motorForce = 8800;
     public float brakeForce = 100;
     private float handbrakeForce = 1500f; // Use this for handbrake effect
     private float steeringSensitivity = .8f; // Adjust this value to find the right responsiveness.

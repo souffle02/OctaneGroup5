@@ -2194,7 +2194,6 @@ Transform:
   m_Children:
   - {fileID: 853634698}
   - {fileID: 683967382}
-  - {fileID: 932711397}
   - {fileID: 1283888876}
   - {fileID: 1659627843}
   - {fileID: 374232761}
@@ -8692,74 +8691,6 @@ WheelCollider:
   m_LayerOverridePriority: 0
   m_Enabled: 1
   m_ProvidesContacts: 0
---- !u!1001 &485933433
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 133370083}
-    m_Modifications:
-    - target: {fileID: 100000, guid: 5b28cfe79ba1485488934c086342faf8, type: 3}
-      propertyPath: m_Name
-      value: mountain-race-track (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 5b28cfe79ba1485488934c086342faf8, type: 3}
-      propertyPath: m_RootOrder
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 5b28cfe79ba1485488934c086342faf8, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 5b28cfe79ba1485488934c086342faf8, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 5b28cfe79ba1485488934c086342faf8, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 5b28cfe79ba1485488934c086342faf8, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 33.95664
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 5b28cfe79ba1485488934c086342faf8, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 30.017525
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 5b28cfe79ba1485488934c086342faf8, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -32.551056
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 5b28cfe79ba1485488934c086342faf8, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 5b28cfe79ba1485488934c086342faf8, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 5b28cfe79ba1485488934c086342faf8, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 5b28cfe79ba1485488934c086342faf8, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2300000, guid: 5b28cfe79ba1485488934c086342faf8, type: 3}
-      propertyPath: m_Materials.Array.data[1]
-      value: 
-      objectReference: {fileID: 2100000, guid: c5f45c01ff18c4d4797eb156869c8ad3, type: 2}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 100000, guid: 5b28cfe79ba1485488934c086342faf8, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 932711398}
-  m_SourcePrefab: {fileID: 100100000, guid: 5b28cfe79ba1485488934c086342faf8, type: 3}
 --- !u!1001 &491576072
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16757,7 +16688,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c3c95a685c2e0a4b89faba14d0251c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateSpeed: 20
 --- !u!1 &707329567
 GameObject:
   m_ObjectHideFlags: 0
@@ -18642,7 +18572,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c3c95a685c2e0a4b89faba14d0251c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateSpeed: 1
 --- !u!1001 &878352110
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20092,38 +20021,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: bd759135218df874a91b2cd22f25976a, type: 3}
   m_PrefabInstance: {fileID: 83614689}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &932711396 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 100000, guid: 5b28cfe79ba1485488934c086342faf8, type: 3}
-  m_PrefabInstance: {fileID: 485933433}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &932711397 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 400000, guid: 5b28cfe79ba1485488934c086342faf8, type: 3}
-  m_PrefabInstance: {fileID: 485933433}
-  m_PrefabAsset: {fileID: 0}
---- !u!64 &932711398
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 932711396}
-  m_Material: {fileID: 13400000, guid: 3085faf2820c39743ab57f77a0211ddb, type: 2}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: 5b28cfe79ba1485488934c086342faf8, type: 3}
 --- !u!1 &941585656
 GameObject:
   m_ObjectHideFlags: 0
@@ -21728,7 +21625,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coinCounter: {fileID: 1026712686}
-  coinCount: 0
 --- !u!114 &1026712686
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22063,7 +21959,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c3c95a685c2e0a4b89faba14d0251c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateSpeed: 30
 --- !u!64 &1037369391
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -22098,7 +21993,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c3c95a685c2e0a4b89faba14d0251c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateSpeed: 1
 --- !u!4 &1040066258 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 9c29525e79bd5f942b5e6f8a54a3e695, type: 3}
@@ -28002,7 +27896,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c3c95a685c2e0a4b89faba14d0251c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateSpeed: 1
 --- !u!64 &1418722136
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -28037,7 +27930,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c3c95a685c2e0a4b89faba14d0251c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateSpeed: 1
 --- !u!1 &1419513829
 GameObject:
   m_ObjectHideFlags: 0
@@ -28307,8 +28199,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   progressText: {fileID: 1321206304}
-  coins: 0
-  lives: 3
+  currLevel: 1
   frontDriverW: {fileID: 483068890}
   frontPassengerW: {fileID: 1409103545}
   rearDriverW: {fileID: 909705634}
@@ -28321,7 +28212,6 @@ MonoBehaviour:
   motorForce: 3000
   brakeForce: 2000
   Crasheffects: {fileID: 598881831}
-  Skideffects: {fileID: 1902615052}
   countdownTimer: {fileID: 0}
   rocketLauncherPrefab: {fileID: 1459390192040592412, guid: bfa441a3c5e5246b9a24602d605ee984, type: 3}
 --- !u!82 &1427702998
@@ -28961,7 +28851,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   livesCounter: {fileID: 1453776742}
-  livesCount: 3
 --- !u!114 &1453776742
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35269,7 +35158,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c3c95a685c2e0a4b89faba14d0251c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateSpeed: 1
 --- !u!1001 &1536529799
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -37044,7 +36932,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   logCounter: {fileID: 1645993190}
-  CURR_LEVEL: 0
+  currLevel: 0
 --- !u!114 &1645993190
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37631,6 +37519,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timerText: {fileID: 1665581986}
+  multiplierSprite: {fileID: 0}
+  timewarpSprite: {fileID: 0}
+  invincibilitySprite: {fileID: 0}
+  rocketSprite: {fileID: 0}
 --- !u!114 &1665581986
 MonoBehaviour:
   m_ObjectHideFlags: 0
