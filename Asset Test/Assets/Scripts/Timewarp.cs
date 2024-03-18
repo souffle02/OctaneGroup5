@@ -10,7 +10,8 @@ public class Timewarp : MonoBehaviour
     make much tighter turns than they normally would. Additionally, playing speed will be reduced
     by 25-30%, giving the player more time to react to oncoming obstacles.
     */
-
+    public AudioClip impact;
+    AudioSource audioSource;
     private float timeSlowDownAmount = 0.5f; //1 = normal
 
     public Image timeWarpEffectHue;
@@ -20,6 +21,7 @@ public class Timewarp : MonoBehaviour
 
     private void OnEnable() {
         timeWarpEffectHue.enabled = false;
+        audioSource = GetComponent<AudioSource>();
         // EventScriptManager.onCollectInvincibility += ActiveTimewarp;
     }
 
@@ -33,6 +35,8 @@ public class Timewarp : MonoBehaviour
         {
             // Start the coroutine on the player's gameObject instead of the power-up
             onPlayerCollectTimeWarpEvent?.Invoke(this);
+            audioSource.PlayOneShot(impact, 0.7F);
+
             other.gameObject.GetComponent<PlayerController>().StartCoroutine(ActivateAndDeactivateTimewarp(other.GetComponent<PlayerController>()));
             Destroy(gameObject); // Destroy the power-up
         }
