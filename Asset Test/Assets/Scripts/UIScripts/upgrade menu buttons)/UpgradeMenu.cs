@@ -16,6 +16,10 @@ public class UpgradeMenu : MonoBehaviour
         coinText.text = coins + "";
     }
 
+    public void Update() {
+        coinText.text = coins + "";
+    }
+
     public void LevelSelector() {
         SceneManager.LoadScene("Level Selector");
     }

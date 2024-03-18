@@ -11,7 +11,7 @@ public class RepairKitButton : MonoBehaviour
     private bool ismaxlevel;
 
     private int coinsRequired;
-    private int livesRestored;
+    public static int livesRestored;
     
     // Start is called before the first frame update
     void Start()
@@ -34,8 +34,8 @@ public class RepairKitButton : MonoBehaviour
                 Debug.Log("Coins: " + UpgradeMenu.coins);
 
                 livesRestored += 1;
-                repairKitEffects.text = "Current: " + livesRestored + " seconds" + 
-                    "\nNext: " + (livesRestored + 1) + " seconds" + 
+                repairKitEffects.text = "Current: " + livesRestored + " lives" + 
+                    "\nNext: " + (livesRestored + 1) + " lives" + 
                     "\nUpgrade cost: " + coinsRequired + " coins";
             }
             
@@ -44,7 +44,7 @@ public class RepairKitButton : MonoBehaviour
             }
 
             if (ismaxlevel) {
-                repairKitEffects.text = "Current: " + livesRestored + " seconds" + 
+                repairKitEffects.text = "Current: " + livesRestored + " lives" + 
                         "\nMAX LEVEL";
             }
         }

@@ -11,7 +11,7 @@ public class InvincibilityButton : MonoBehaviour
     private bool ismaxlevel;
 
     private int coinsRequired;
-    private float InvincibilityDuration;
+    public static float InvincibilityDuration;
     
     // Start is called before the first frame update
     void Start()

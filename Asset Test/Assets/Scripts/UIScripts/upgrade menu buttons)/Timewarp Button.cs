@@ -11,7 +11,7 @@ public class TimewarpButton : MonoBehaviour
     private bool ismaxlevel;
 
     private int coinsRequired;
-    private float timewarpDuration;
+    public static float timewarpDuration;
     
     // Start is called before the first frame update
     void Start()

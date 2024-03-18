@@ -12,9 +12,7 @@ public class CoinMultiplierButton : MonoBehaviour
     private bool ismaxlevel;
 
     private int coinsRequired;
-    private float coinMultiplierDuration;
-
-    public GameObject _gameObject;
+    public static float coinMultiplierDuration;
     
     // Start is called before the first frame update
     void Start()
@@ -22,6 +20,7 @@ public class CoinMultiplierButton : MonoBehaviour
         upgradeLevel = 1;
         ismaxlevel = false;
         coinsRequired = 20;
+
         coinMultiplierDuration = 10f;  // initial duration is 10 seconds
         coinMultiplierEffects.text = "Current: " + coinMultiplierDuration + " seconds" + 
             "\nNext: " + (coinMultiplierDuration + 2.5f) + " seconds" +
@@ -34,7 +33,6 @@ public class CoinMultiplierButton : MonoBehaviour
                 upgradeLevel += 1;
                 UpgradeMenu.coins -= coinsRequired;
                 Debug.Log("Coins: " + UpgradeMenu.coins);
-                // UpgradeMenu.coinText.text = UpgradeMenu.coins + "";
 
                 coinMultiplierDuration += 2.5f;
                 coinsRequired += (coinsRequired / 2) + 5;

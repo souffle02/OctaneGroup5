@@ -11,7 +11,7 @@ public class RocketLauncherUpgrade : MonoBehaviour
     private bool ismaxlevel;
 
     private int coinsRequired;
-    private int rockets;
+    public static int rockets;
     
     // Start is called before the first frame update
     void Start()
@@ -35,8 +35,8 @@ public class RocketLauncherUpgrade : MonoBehaviour
 
                 rockets += 1;
                 coinsRequired += (coinsRequired / 9) + 8;
-                rocketLauncherEffects.text = "Current: " + rockets + " seconds" + 
-                    "\nNext: " + (rockets + 1) + " seconds" + 
+                rocketLauncherEffects.text = "Current: " + rockets + " rockets" + 
+                    "\nNext: " + (rockets + 1) + " rockets" + 
                     "\nUpgrade cost: " + coinsRequired + " coins";
             }
             
@@ -45,7 +45,7 @@ public class RocketLauncherUpgrade : MonoBehaviour
             }
 
             if (ismaxlevel) {
-                rocketLauncherEffects.text = "Current: " + rockets + " seconds" + 
+                rocketLauncherEffects.text = "Current: " + rockets + " rockets" + 
                         "\nMAX LEVEL";
             }
         }
