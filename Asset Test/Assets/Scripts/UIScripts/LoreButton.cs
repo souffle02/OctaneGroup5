@@ -5,6 +5,9 @@ using System.Collections.Generic;
 
 public class LoreButton : MonoBehaviour
 {
+    public GameObject gameEndUI; 
+    public GameObject loreUI;
+
     public TextMeshProUGUI loreText; // text component
     private List<int> loreCount;
     public int loreCollected = 0;
@@ -34,5 +37,12 @@ public class LoreButton : MonoBehaviour
         } else {
             loreText.text = "You have not collected this chapter yet.";
         }
+    }
+
+    // This method swaps the active state of the two UI elements
+    public void ActivateLoreUI()
+    {
+        loreUI.SetActive(true);
+        gameEndUI.SetActive(false);
     }
 }
