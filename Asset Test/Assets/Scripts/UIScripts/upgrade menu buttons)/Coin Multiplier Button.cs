@@ -13,7 +13,7 @@ public class CoinMultiplierButton : MonoBehaviour
     private int maxlevel = 5;
     private static bool ismaxlevel = false;
 
-    private static int coinsRequired = 20;
+    private static int coinsRequired = 15;
     public static float coinMultiplierDuration = 10f;
 
     public void Awake() {

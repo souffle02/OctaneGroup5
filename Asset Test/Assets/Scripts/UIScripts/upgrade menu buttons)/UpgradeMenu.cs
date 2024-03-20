@@ -10,9 +10,9 @@ public class UpgradeMenu : MonoBehaviour
     [SerializeField] public TMP_Text coinText;
 
     public void Start() {
-        // coins = 1000;
+        coins = 1000;
 
-        coins = CoinCounterScript.coinCount;
+        // coins = CoinCounterScript.coinCount;
         coinText.text = coins + "";
     }
 
@@ -21,6 +21,7 @@ public class UpgradeMenu : MonoBehaviour
     }
 
     public void LevelSelector() {
+        CoinCounterScript.coinCount = coins;
         SceneManager.LoadScene("Level Selector");
     }
 }

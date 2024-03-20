@@ -49,7 +49,6 @@ public class CoinCounterScript : MonoBehaviour
     }
     private void Start()
     {
-        
         coinCounter.SetText(coinCount.ToString());
     }
 

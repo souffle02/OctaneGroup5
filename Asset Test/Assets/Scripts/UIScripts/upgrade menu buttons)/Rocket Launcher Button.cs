@@ -12,7 +12,7 @@ public class RocketLauncherButton : MonoBehaviour
     private int maxlevel = 4;
     private static bool ismaxlevel = false;
 
-    private static int coinsRequired = 45;
+    private static int coinsRequired = 30;
     public static int rockets = 1;
 
     public void Awake() {

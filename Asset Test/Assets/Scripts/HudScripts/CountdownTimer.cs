@@ -73,8 +73,6 @@ public class CountdownTimer : MonoBehaviour
     {
         // Start the countdown with the specified duration
         Debug.Log("STARTING COUNTDOWN");
-        Debug.Log("Current invincibility duration: " + InvincibilityButton.InvincibilityDuration);
-        Debug.Log("Current coin multiplier duration: " + CoinMultiplierButton.coinMultiplierDuration);
         currentTime = duration;
         isCounting = true;
         timerText.enabled = true;
@@ -84,18 +82,21 @@ public class CountdownTimer : MonoBehaviour
     public void startTimeWarpCountdown(Timewarp events)
     {
         powerupImage.sprite = timewarpSprite;
-        StartCountdown(5f);
+        Debug.Log("Current timewarp duration: " + TimewarpButton.timewarpDuration);
+        StartCountdown(TimewarpButton.timewarpDuration);
     }
 
     public void startInvincibilityCountdown(Invincibility events)
     {
         powerupImage.sprite = invincibilitySprite;
-        StartCountdown(5f);
+        Debug.Log("Current invincibility duration: " + InvincibilityButton.InvincibilityDuration);
+        StartCountdown(InvincibilityButton.InvincibilityDuration);
     }
 
     public void startMultiplierCountdown(CoinMultiplier events)
     {
         powerupImage.sprite = multiplierSprite;
-        StartCountdown(5f);
+        Debug.Log("Current coin multiplier duration: " + CoinMultiplierButton.coinMultiplierDuration);
+        StartCountdown(CoinMultiplierButton.coinMultiplierDuration);
     }
 }

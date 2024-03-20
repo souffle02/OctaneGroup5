@@ -59,7 +59,7 @@ public class LivesCounterScript : MonoBehaviour
     private void AddLife(RepairKit events) // argument should be EventScript event
     {
         Debug.Log("Life collection event heard");
-        livesCount++;
+        livesCount += RepairKitButton.livesRestored;
         livesCounter.SetText(livesCount.ToString());
     }
 
@@ -73,9 +73,14 @@ public class LivesCounterScript : MonoBehaviour
             GameManager.Instance.GameOver();
         }
     }
+    
     private void LivesRestored(EventScriptManager powerup) {
+        /*
         Debug.Log("Lives fully restored");
         livesCount = 3;
         livesCounter.SetText(livesCount.ToString());
+        */
+
+        // don't think we need this since we have a working repair kit
     }
 }
