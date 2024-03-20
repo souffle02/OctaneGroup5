@@ -6,24 +6,26 @@ using TMPro;
 public class TimewarpButton : MonoBehaviour
 {
     [SerializeField] private TMP_Text timewarpEffects;
-    private int upgradeLevel;
-    private int maxlevel = 5;
-    private bool ismaxlevel;
+    public static TimewarpButton timewarpInstance;
 
-    private int coinsRequired;
-    public static float timewarpDuration;
+    private static int upgradeLevel = 1;
+    private int maxlevel = 5;
+    private static bool ismaxlevel = false;
+
+    private static int coinsRequired = 60;
+    public static float timewarpDuration = 5f;
     
     // Start is called before the first frame update
     void Start()
     {
-        upgradeLevel = 1;
-        ismaxlevel = false;
-        coinsRequired = 60;
-
-        timewarpDuration = 5f;  // initial timewarp duration is 5 seconds
-        timewarpEffects.text = "Current: " + timewarpDuration + " seconds" + 
-            "\nNext: " + (timewarpDuration + 1.25f) + " seconds" + 
-            "\nUpgrade cost: " + coinsRequired + " coins";
+        if (ismaxlevel) {
+            timewarpEffects.text = "Current: " + timewarpDuration + " seconds" + 
+                    "\nMAX LEVEL";
+        } else {
+            timewarpEffects.text = "Current: " + timewarpDuration + " seconds" + 
+                "\nNext: " + (timewarpDuration + 1.25f) + " seconds" + 
+                "\nUpgrade cost: " + coinsRequired + " coins";
+        }
     }
 
     public void UpgradeTimewarp() {
@@ -31,7 +33,7 @@ public class TimewarpButton : MonoBehaviour
             if (!ismaxlevel) {
                 upgradeLevel += 1;
                 UpgradeMenu.coins -= coinsRequired;
-                Debug.Log("Coins: " + UpgradeMenu.coins);
+                // Debug.Log("Coins: " + UpgradeMenu.coins);
 
                 timewarpDuration += 1.25f;
                 coinsRequired += (coinsRequired / 6) + 8;

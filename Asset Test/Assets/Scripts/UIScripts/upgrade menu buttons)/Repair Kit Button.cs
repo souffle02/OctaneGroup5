@@ -6,24 +6,33 @@ using TMPro;
 public class RepairKitButton : MonoBehaviour
 {
     [SerializeField] private TMP_Text repairKitEffects;
-    private int upgradeLevel;
-    private int maxlevel = 2;
-    private bool ismaxlevel;
+    public static RepairKitButton repairKitInstance;
 
-    private int coinsRequired;
-    public static int livesRestored;
+    private static int upgradeLevel = 1;
+    private int maxlevel = 2;
+    private static bool ismaxlevel = false;
+
+    private static int coinsRequired = 250;
+    public static int livesRestored = 1;
+
+    public void Awake() {
+        if (repairKitInstance == null) {
+            repairKitInstance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+    }
     
     // Start is called before the first frame update
     void Start()
     {
-        upgradeLevel = 1;
-        ismaxlevel = false;
-        coinsRequired = 250;
-
-        livesRestored = 1;  // initial lives restored is 1
-        repairKitEffects.text = "Current: " + livesRestored + " life" + 
-            "\nNext: " + (livesRestored + 1) + " lives" + 
-            "\nCoins for next level: " + coinsRequired;
+        if (ismaxlevel) {
+            repairKitEffects.text = "Current: " + livesRestored + " lives" + 
+                    "\nMAX LEVEL";
+        } else {
+            repairKitEffects.text = "Current: " + livesRestored + " life" + 
+                "\nNext: " + (livesRestored + 1) + " lives" + 
+                "\nCoins for next level: " + coinsRequired;
+        }
     }
 
     public void UpgradeRepairKit() {
@@ -31,7 +40,7 @@ public class RepairKitButton : MonoBehaviour
             if (!ismaxlevel) {
                 upgradeLevel += 1;
                 UpgradeMenu.coins -= coinsRequired;
-                Debug.Log("Coins: " + UpgradeMenu.coins);
+                // Debug.Log("Coins: " + UpgradeMenu.coins);
 
                 livesRestored += 1;
                 repairKitEffects.text = "Current: " + livesRestored + " lives" + 

@@ -73,6 +73,8 @@ public class CountdownTimer : MonoBehaviour
     {
         // Start the countdown with the specified duration
         Debug.Log("STARTING COUNTDOWN");
+        Debug.Log("Current invincibility duration: " + InvincibilityButton.InvincibilityDuration);
+        Debug.Log("Current coin multiplier duration: " + CoinMultiplierButton.coinMultiplierDuration);
         currentTime = duration;
         isCounting = true;
         timerText.enabled = true;

@@ -82,7 +82,7 @@ public class CoinCounterScript : MonoBehaviour
 
     private IEnumerator ResetDoubleCoin()
     {
-        yield return new WaitForSeconds(5f); // Wait for 5 seconds
+        yield return new WaitForSeconds(CoinMultiplierButton.coinMultiplierDuration); // Wait for 5 seconds
         doubleCoin = false; // Reset doubleCoin to false
         Debug.Log("double coin deactivated");
     }

@@ -3,27 +3,36 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class RocketLauncherUpgrade : MonoBehaviour
+public class RocketLauncherButton : MonoBehaviour
 {
     [SerializeField] private TMP_Text rocketLauncherEffects;
-    private int upgradeLevel;
-    private int maxlevel = 4;
-    private bool ismaxlevel;
+    public static RocketLauncherButton launcherInstance;
 
-    private int coinsRequired;
-    public static int rockets;
+    private static int upgradeLevel = 1;
+    private int maxlevel = 4;
+    private static bool ismaxlevel = false;
+
+    private static int coinsRequired = 45;
+    public static int rockets = 1;
+
+    public void Awake() {
+        if (launcherInstance == null) {
+            launcherInstance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+    }
     
     // Start is called before the first frame update
     void Start()
     {
-        upgradeLevel = 1;
-        ismaxlevel = false;
-        coinsRequired = 45;
-
-        rockets = 1;  // initial number of rockets stored is 1, can be upgraded to store up to 3
-        rocketLauncherEffects.text = "Current: " + rockets + " rockets" + 
-            "\nNext: " + (rockets + 1) + " rockets" + 
-            "\nUpgrade cost: " + coinsRequired + " coins";
+        if (ismaxlevel) {
+            rocketLauncherEffects.text = "Current: " + rockets + " rockets" + 
+                    "\nMAX LEVEL";
+        } else {
+            rocketLauncherEffects.text = "Current: " + rockets + " rockets" + 
+                "\nNext: " + (rockets + 1) + " rockets" + 
+                "\nUpgrade cost: " + coinsRequired + " coins";
+        }
     }
 
     public void UpgradeRocketLauncher() {
@@ -31,7 +40,7 @@ public class RocketLauncherUpgrade : MonoBehaviour
             if (!ismaxlevel) {
                 upgradeLevel += 1;
                 UpgradeMenu.coins -= coinsRequired;
-                Debug.Log("Coins: " + UpgradeMenu.coins);
+                // Debug.Log("Coins: " + UpgradeMenu.coins);
 
                 rockets += 1;
                 coinsRequired += (coinsRequired / 9) + 8;

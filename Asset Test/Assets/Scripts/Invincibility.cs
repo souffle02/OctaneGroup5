@@ -7,14 +7,12 @@ public class Invincibility : MonoBehaviour
 
     public static event Action<Invincibility> onPlayerCollectInvincibilityEvent;
 
-    private float timeInvincible = 5;
+    private float timeInvincible;
     // may add the invincibility event triggers here depending on what group decides
-    private void OnEnable() {
-        // EventScriptManager.onCollectInvincibility += ActiveInvincibility;
-    }
-
-    private void OnDisable() {
-        // EventScriptManager.onCollectInvincibility -= ActiveInvincibility;
+    
+    public void Update() {
+        timeInvincible = InvincibilityButton.InvincibilityDuration;
+        Debug.Log(timeInvincible);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -30,10 +28,6 @@ public class Invincibility : MonoBehaviour
 
     private void ActiveInvincibility(EventScriptManager powerup) {
         Debug.Log("Invincibility powerup collected");
-    }
-
-    private void setTimeInvincible(float time) {
-        timeInvincible = time;
     }
 
     private IEnumerator ActivateAndDeactivateInvincibility(PlayerController playerController)
