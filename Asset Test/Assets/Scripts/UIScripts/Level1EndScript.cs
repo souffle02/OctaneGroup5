@@ -25,7 +25,6 @@ public class Level1EndScript : MonoBehaviour
         level1endHandler = this;
     }
 
-
     private void Start()
     {
         Cursor.lockState = CursorLockMode.None;
@@ -46,6 +45,10 @@ public class Level1EndScript : MonoBehaviour
         loreText.SetText(loreCount[currLevel].ToString() + " / 2");
         currLevel++;
         Debug.Log("NEW CURRLEVEL: " + currLevel);
+    }
+
+    public void LevelSelector() {
+        SceneManager.LoadScene("Level Selector");
     }
 
     /* public void onButtonClick() {

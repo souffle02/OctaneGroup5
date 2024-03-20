@@ -1,18 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CanvasSwitcherScript : MonoBehaviour
 {
-    [SerializeField] GameObject levelSelectCanvas;
-
-    private void Start()
-    {
-        levelSelectCanvas.SetActive(false);
-    }
-
-    public void ChangeToLevelSelect(GameObject levelSelectCanvas)
-    {
-        levelSelectCanvas.SetActive(true);
+    public void ChangeToLevelSelect() {
+        SceneManager.LoadScene("Level Selector");
     }
 }
