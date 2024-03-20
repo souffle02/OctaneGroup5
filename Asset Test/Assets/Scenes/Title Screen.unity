@@ -182,8 +182,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Start
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2307cf6bc4a741548b8a158f829e5140, type: 2}
+  m_sharedMaterial: {fileID: -648836094095556871, guid: 2307cf6bc4a741548b8a158f829e5140, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -285,7 +285,7 @@ RectTransform:
   m_GameObject: {fileID: 520170439}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 121323455}
@@ -658,6 +658,18 @@ PrefabInstance:
       propertyPath: level3Blocker
       value: 
       objectReference: {fileID: 721329103}
+    - target: {fileID: 2091553667353549421, guid: b55716e0448d81148a1ba8f6fe6f9db2, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1920
+      objectReference: {fileID: 0}
+    - target: {fileID: 2091553667353549421, guid: b55716e0448d81148a1ba8f6fe6f9db2, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 1080
+      objectReference: {fileID: 0}
+    - target: {fileID: 2091553667353549421, guid: b55716e0448d81148a1ba8f6fe6f9db2, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5684911474946473117, guid: b55716e0448d81148a1ba8f6fe6f9db2, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -737,6 +749,18 @@ PrefabInstance:
     - target: {fileID: 5684911474946473117, guid: b55716e0448d81148a1ba8f6fe6f9db2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6521666044241694319, guid: b55716e0448d81148a1ba8f6fe6f9db2, type: 3}
+      propertyPath: m_MatchWidthOrHeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6521666044241694319, guid: b55716e0448d81148a1ba8f6fe6f9db2, type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 1920
+      objectReference: {fileID: 0}
+    - target: {fileID: 6521666044241694319, guid: b55716e0448d81148a1ba8f6fe6f9db2, type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 1080
       objectReference: {fileID: 0}
     - target: {fileID: 6981334698013963189, guid: b55716e0448d81148a1ba8f6fe6f9db2, type: 3}
       propertyPath: m_Name
@@ -1143,14 +1167,14 @@ RectTransform:
   m_GameObject: {fileID: 2030608553}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1332789482}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 50}
   m_SizeDelta: {x: 0, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2030608555
@@ -1175,8 +1199,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Octane Escape
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2307cf6bc4a741548b8a158f829e5140, type: 2}
+  m_sharedMaterial: {fileID: -648836094095556871, guid: 2307cf6bc4a741548b8a158f829e5140, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

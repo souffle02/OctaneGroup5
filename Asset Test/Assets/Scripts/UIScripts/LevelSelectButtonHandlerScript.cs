@@ -12,6 +12,7 @@ public class LevelSelectButtonHandlerScript : MonoBehaviour
     [SerializeField] Button level1Button;
     [SerializeField] Button level2Button;
     [SerializeField] Button level3Button;
+    [SerializeField] Button UpgradeMenuButton;
     [SerializeField] TMP_Text lore1Text;
     [SerializeField] TMP_Text lore2Text;
     [SerializeField] TMP_Text lore3Text;
@@ -81,22 +82,27 @@ public class LevelSelectButtonHandlerScript : MonoBehaviour
         loreText.SetText("---"); 
     }
 
-    void ClickedLevel1()
+    public void ClickedLevel1()
     {
         Debug.Log("Loading scene: Level 1");
         SceneManager.LoadScene("Level 1");
     }
 
-    void ClickedLevel2()
+    public void ClickedLevel2()
     {
         Debug.Log("Loading scene: Level 2");
         SceneManager.LoadScene("Level 2");
     }
 
-    void ClickedLevel3()
+    public void ClickedLevel3()
     {
         Debug.Log("Loading scene: Level 3");
         SceneManager.LoadScene("Level 3");
+    }
+
+    public void ClickedUpgradeMenu() {
+        Debug.Log("Loading scene: Upgrade Menu");
+        SceneManager.LoadScene("Upgrade Menu");
     }
     /*private void Start()
     {
