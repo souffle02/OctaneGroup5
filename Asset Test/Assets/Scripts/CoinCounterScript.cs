@@ -17,6 +17,7 @@ public class CoinCounterScript : MonoBehaviour
     private void OnEnable()
     {
         Coin.onPlayerCollectCoinEvent += AddCoin;
+        PlayerController.giveAllCoinsEvent += GiveAllCoins;
         CoinMultiplier.onCollectCoinMultiplier += DoubleCoinTimer;
         // Event.onPlayerCollectCoinEvent += AddCoin;
         // TODO: might need to add an event for collecting a x2 powerup. need to create a canvas with the x2 icon
@@ -25,6 +26,7 @@ public class CoinCounterScript : MonoBehaviour
     private void OnDisable()
     {
         Coin.onPlayerCollectCoinEvent -= AddCoin;
+        PlayerController.giveAllCoinsEvent -= GiveAllCoins;
         CoinMultiplier.onCollectCoinMultiplier -= DoubleCoinTimer;
         // Event.onPlayerCollectCoinEvent -= AddCoin;
     }
@@ -70,6 +72,13 @@ public class CoinCounterScript : MonoBehaviour
         {
             coinCount++;
         }
+
+        coinCounter.SetText(coinCount.ToString());
+    }
+
+    public void GiveAllCoins(PlayerController events) // argument should be EventScript event
+    {
+        coinCount = 999;
 
         coinCounter.SetText(coinCount.ToString());
     }

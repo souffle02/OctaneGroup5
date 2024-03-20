@@ -15,12 +15,14 @@ public class LogCounter : MonoBehaviour
     private void OnEnable()
     {
         Lore.onPlayerCollectLogEvent += AddLog;
+        PlayerController.giveAllLoreEvent += GiveAllLogs;
         // Event.onPlayerCollectLogEvent += AddLog;
     }
 
     private void OnDisable()
     {
         Lore.onPlayerCollectLogEvent -= AddLog;
+        PlayerController.giveAllLoreEvent -= GiveAllLogs;
         // Event.onPlayerCollectLogEvent -= AddLog;
     }
 
@@ -48,7 +50,25 @@ public class LogCounter : MonoBehaviour
     {
         LogCounter thisScript = new LogCounter();
         Debug.Log("Log collection event heard");
-        logCounts[currLevel]++;
+        if (logCounts[currLevel] >= 2)
+        {
+            logCounts[currLevel] = 2;
+        }
+        else
+        {
+            logCounts[currLevel]++;
+        }
+        thisScript.LogCounts = logCounts;
+        logCounter.SetText(logCounts[currLevel].ToString() + "/" + logCountPerLevel[currLevel].ToString());
+    }
+
+    private void GiveAllLogs(PlayerController events)
+    {
+        LogCounter thisScript = new LogCounter();
+        logCounts[0] = 2;
+        logCounts[1] = 2;
+        logCounts[2] = 2;
+        logCounts[3] = 2;
         thisScript.LogCounts = logCounts;
         logCounter.SetText(logCounts[currLevel].ToString() + "/" + logCountPerLevel[currLevel].ToString());
     }

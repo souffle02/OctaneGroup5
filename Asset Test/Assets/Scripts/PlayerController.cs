@@ -51,6 +51,8 @@ public class PlayerController : MonoBehaviour
     // EVENTS
     public static event Action<PlayerController> onPlayerLoseLifeEvent;
     public static PlayerController PlayerInstance;
+    public static event Action<PlayerController> giveAllCoinsEvent;
+    public static event Action<PlayerController> giveAllLoreEvent;
 
 
     private void Awake()
@@ -119,6 +121,25 @@ public class PlayerController : MonoBehaviour
         Cursor.visible = true;
     }
 
+    private void Update()
+    {
+        // HAUNGS MODE
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            if (!haungsMode)
+            {
+                haungsMode = true;
+            }
+            else
+            {
+                haungsMode = false;
+                isInvincible = false;
+            }
+            Debug.Log("Haungs mode: " + haungsMode);
+
+        }
+    }
+
     private void FixedUpdate()
     {
         Steer();
@@ -141,21 +162,10 @@ public class PlayerController : MonoBehaviour
         if (haungsMode)
         {
             isInvincible = true;
+            giveAllCoinsEvent?.Invoke(this);
+            giveAllLoreEvent?.Invoke(this);
         }
 
-        // HAUNGS MODE
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            if (!haungsMode)
-            {
-                haungsMode = true;
-            }
-            else
-            {
-                haungsMode = false;
-                isInvincible = false;
-            }
-        }
     }
 
     private void Steer()
