@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class RepairKit : MonoBehaviour
 {
+    [SerializeField] AudioSource sfx;
+
     public static event Action<RepairKit> onCollectRepairKit;
     /*
     private void OnEnable() {
@@ -18,6 +20,8 @@ public class RepairKit : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            sfx.Play();
+
             onCollectRepairKit?.Invoke(this);
             // other.GetComponent<PlayerController>().AddLife();
             Destroy(gameObject); // Destroy the power-up

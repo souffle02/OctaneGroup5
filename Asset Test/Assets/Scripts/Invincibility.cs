@@ -6,19 +6,22 @@ public class Invincibility : MonoBehaviour
 {
 
     public static event Action<Invincibility> onPlayerCollectInvincibilityEvent;
+    [SerializeField] AudioSource sfx;
+
 
     private float timeInvincible;
     // may add the invincibility event triggers here depending on what group decides
     
     public void Update() {
         timeInvincible = InvincibilityButton.InvincibilityDuration;
-        Debug.Log(timeInvincible);
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
+            sfx.Play();
+
             onPlayerCollectInvincibilityEvent?.Invoke(this);
             // Start the coroutine on the player's gameObject instead of the power-up
             other.gameObject.GetComponent<PlayerController>().StartCoroutine(ActivateAndDeactivateInvincibility(other.GetComponent<PlayerController>()));

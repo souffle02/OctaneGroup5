@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class RocketLauncher : MonoBehaviour
 {
+    [SerializeField] AudioSource sfx;
     private void OnEnable() {
         EventScriptManager.onCollectRocketLauncher += LauncherObtained;
     }
@@ -14,6 +15,7 @@ public class RocketLauncher : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            sfx.Play();
             other.GetComponent<PlayerController>().EnableShooting();
             Destroy(gameObject); // Destroy the power-up
         }

@@ -6,6 +6,7 @@ using UnityEngine;
 public class Coin : MonoBehaviour
 {
     public static event Action<Coin> onPlayerCollectCoinEvent;
+    [SerializeField] AudioSource coinsfx;
 
     /*
     private void OnEnable() {
@@ -22,6 +23,7 @@ public class Coin : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             onPlayerCollectCoinEvent?.Invoke(this);
+            coinsfx.Play();
             Destroy(gameObject); // Destroy the coin after collection
         }
     }

@@ -133,3 +133,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34a75b905e2fd2b45ac4fdc7182940c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  impact: {fileID: 8300000, guid: d0416ea2ba65c3246adb269de395b719, type: 3}
+  timeWarpEffectHue: {fileID: 0}
