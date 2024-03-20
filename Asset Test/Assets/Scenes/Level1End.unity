@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1291,6 +1291,18 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2531987688030621088, guid: 8a39b02913cb04962ae45ed2ef8d30a4, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2531987688030621088, guid: 8a39b02913cb04962ae45ed2ef8d30a4, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2531987688030621088, guid: 8a39b02913cb04962ae45ed2ef8d30a4, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2531987688030621088, guid: 8a39b02913cb04962ae45ed2ef8d30a4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -1361,6 +1373,18 @@ PrefabInstance:
     - target: {fileID: 4652426796497933155, guid: 8a39b02913cb04962ae45ed2ef8d30a4, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: LoreButton, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4986374821611219760, guid: 8a39b02913cb04962ae45ed2ef8d30a4, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4986374821611219760, guid: 8a39b02913cb04962ae45ed2ef8d30a4, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5057537760106318789, guid: 8a39b02913cb04962ae45ed2ef8d30a4, type: 3}
+      propertyPath: m_RenderMode
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8180769365291913834, guid: 8a39b02913cb04962ae45ed2ef8d30a4, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
