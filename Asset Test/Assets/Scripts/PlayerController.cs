@@ -32,6 +32,12 @@ public class PlayerController : MonoBehaviour
     private bool handbrakeActive = false; // Handbrake flag
     private float m_rotateInput; // Add this to capture the rotate input
     [SerializeField] GameObject Crasheffects;
+    [SerializeField] AudioSource skid;
+
+    [SerializeField] AudioSource drive;
+    [SerializeField] AudioSource crash;
+
+
     
     // CHECKPOINTS
     private int totalProgressCheckpoints; // Total number of progress checkpoints
@@ -58,6 +64,7 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         PlayerInstance = this;
+        drive.Play();
         /* if (PlayerInstance == null)
         {
             // If this is the first instance, set it as the instance
@@ -203,6 +210,7 @@ public class PlayerController : MonoBehaviour
 
     private void ApplyHandbrake()
     {
+
         var brakeTorque = handbrakeForce;
         rearDriverW.brakeTorque = brakeTorque;
         rearPassengerW.brakeTorque = brakeTorque;
@@ -235,6 +243,8 @@ public class PlayerController : MonoBehaviour
     {
         // Apply drift friction curves
         ApplyDriftFriction();
+        skid.Play();
+
     }
     else
     {
@@ -279,6 +289,7 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.collider.CompareTag("Obstacle"))
         {
+            crash.Play();
             if(!isInvincible)LoseLife();
             Destroy(collision.gameObject);
         }
