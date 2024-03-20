@@ -12,7 +12,7 @@ public class RepairKitButton : MonoBehaviour
     private int maxlevel = 2;
     private static bool ismaxlevel = false;
 
-    private static int coinsRequired = 250;
+    private static int coinsRequired = 175;
     public static int livesRestored = 1;
 
     public void Awake() {

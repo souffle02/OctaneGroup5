@@ -53,14 +53,12 @@ public class Timewarp : MonoBehaviour
         timeWarpEffectHue.enabled = true;
         Debug.Log(" hue: " + timeWarpEffectHue.enabled);
         Time.timeScale = timeSlowDownAmount;
-        Time.fixedDeltaTime = 0.02f * Time.timeScale; // Adjust fixedDeltaTime according to the time scale
+        Time.fixedDeltaTime = 0.02f * Time.timeScale;  // Adjust fixedDeltaTime according to the time scale
         
 
-        yield return new WaitForSecondsRealtime(5); // Wait for 5 seconds in real-time, not game time
-
-        // Return time to normal speed
-        Time.timeScale = 1.0f;
-        Time.fixedDeltaTime = 0.02f; // Reset fixedDeltaTime to the default value
+        yield return new WaitForSecondsRealtime(TimewarpButton.timewarpDuration);
+        Time.timeScale = 1.0f;  // Return time to normal speed
+        Time.fixedDeltaTime = 0.02f;  // Reset fixedDeltaTime to the default value
         timeWarpEffectHue.enabled = false;
 
         Debug.Log("timewarp deactivated");

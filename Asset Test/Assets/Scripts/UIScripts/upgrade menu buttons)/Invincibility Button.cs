@@ -12,7 +12,7 @@ public class InvincibilityButton : MonoBehaviour
     private int maxlevel = 5;
     private static bool ismaxlevel = false;
 
-    private static int coinsRequired = 50;
+    private static int coinsRequired = 35;
     public static float InvincibilityDuration = 6f;
 
     public void Awake() {

@@ -52,7 +52,6 @@ public class EventScriptManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.I))
         {
-            Debug.Log("Invincibility triggered");
             onCollectInvincibility?.Invoke(this);
         }
         if (Input.GetKeyDown(KeyCode.K))

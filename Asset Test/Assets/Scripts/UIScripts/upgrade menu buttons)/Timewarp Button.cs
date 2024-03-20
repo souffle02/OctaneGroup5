@@ -12,8 +12,15 @@ public class TimewarpButton : MonoBehaviour
     private int maxlevel = 5;
     private static bool ismaxlevel = false;
 
-    private static int coinsRequired = 60;
+    private static int coinsRequired = 25;
     public static float timewarpDuration = 5f;
+
+    public void Awake() {
+        if (timewarpInstance == null) {
+            timewarpInstance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+    }
     
     // Start is called before the first frame update
     void Start()
