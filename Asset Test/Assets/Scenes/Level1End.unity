@@ -1159,7 +1159,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b4bf22059f319d45bd4481ad510c562, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelSelectCanvas: {fileID: 0}
+  levelSelectCanvas: {fileID: 4141329443022110724}
 --- !u!1001 &1835018169
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1261,12 +1261,20 @@ PrefabInstance:
       value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 3991257026311578982, guid: 1b119c787ee05c641838b437d7d29089, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3991257026311578982, guid: 1b119c787ee05c641838b437d7d29089, type: 3}
       propertyPath: levelSelectCanvas
       value: 
       objectReference: {fileID: 949666445}
     - target: {fileID: 4823051335630071330, guid: 1b119c787ee05c641838b437d7d29089, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 12.600006
+      objectReference: {fileID: 0}
+    - target: {fileID: 6867612949474135018, guid: 1b119c787ee05c641838b437d7d29089, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6867612949474135018, guid: 1b119c787ee05c641838b437d7d29089, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size

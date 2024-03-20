@@ -8,6 +8,6 @@ public class TitleScreen : MonoBehaviour
 
     public void OpenScene()
     {
-        levelSelectCanvas.SetActive(true);
+        SceneManager.LoadScene("Level 1");
     }
 }
