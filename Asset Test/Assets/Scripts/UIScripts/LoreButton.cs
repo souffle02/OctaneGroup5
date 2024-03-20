@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Collections.Generic;
 
 public class LoreButton : MonoBehaviour
 {
     public TextMeshProUGUI loreText; // text component
+    private List<int> loreCount;
     public int loreCollected = 0;
     private string[] loreStories = new string[]
     {
@@ -17,10 +19,17 @@ public class LoreButton : MonoBehaviour
 
     };
 
+    private void Start()
+    {
+        loreCount = LogCounter.LogsInstance.LogCounts;
+    }
+
     public void DisplayLore(int num)
     {
-        Debug.Log(loreCollected>num);
-        if (loreCollected>num){
+        
+        int loreCounts = loreCount[0] + loreCount[1] + loreCount[2] + loreCount[3];
+        Debug.Log(loreCounts);
+        if (loreCounts>num){
             loreText.text = loreStories[num];
         } else {
             loreText.text = "You have not collected this chapter yet.";
