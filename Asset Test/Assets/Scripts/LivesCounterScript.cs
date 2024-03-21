@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -14,7 +15,8 @@ public class LivesCounterScript : MonoBehaviour
     {
         RepairKit.onCollectRepairKit += AddLife;
         PlayerController.onPlayerLoseLifeEvent += SubtractLife;
-        EventScriptManager.onCollectLifeRestore += LivesRestored;        
+        EventScriptManager.onCollectLifeRestore += LivesRestored;
+        GameOverScript.gameOverEvent += ResetLives;
         // Event.onPlayerCollectLifeEvent += AddLife;
         // Event.onPlayerLoseLifeEvent += SubtractLife;
     }
@@ -24,6 +26,7 @@ public class LivesCounterScript : MonoBehaviour
         RepairKit.onCollectRepairKit -= AddLife;
         PlayerController.onPlayerLoseLifeEvent -= SubtractLife;
         EventScriptManager.onCollectLifeRestore -= LivesRestored;
+        GameOverScript.gameOverEvent -= ResetLives;
         // Event.onPlayerCollectLifeEvent -= AddLife;
         // Event.onPlayerLoseLifeEvent -= SubtractLife;
     }
@@ -73,7 +76,13 @@ public class LivesCounterScript : MonoBehaviour
             GameManager.Instance.GameOver();
         }
     }
-    
+
+    private void ResetLives(GameOverScript events)
+    {
+        livesCount = 0;
+        Destroy(gameObject);
+    }
+
     private void LivesRestored(EventScriptManager powerup) {
         /*
         Debug.Log("Lives fully restored");

@@ -19,6 +19,7 @@ public class CoinCounterScript : MonoBehaviour
         Coin.onPlayerCollectCoinEvent += AddCoin;
         PlayerController.giveAllCoinsEvent += GiveAllCoins;
         CoinMultiplier.onCollectCoinMultiplier += DoubleCoinTimer;
+        GameOverScript.gameOverEvent += ResetCoins;
         // Event.onPlayerCollectCoinEvent += AddCoin;
         // TODO: might need to add an event for collecting a x2 powerup. need to create a canvas with the x2 icon
     }
@@ -28,6 +29,7 @@ public class CoinCounterScript : MonoBehaviour
         Coin.onPlayerCollectCoinEvent -= AddCoin;
         PlayerController.giveAllCoinsEvent -= GiveAllCoins;
         CoinMultiplier.onCollectCoinMultiplier -= DoubleCoinTimer;
+        GameOverScript.gameOverEvent -= ResetCoins;
         // Event.onPlayerCollectCoinEvent -= AddCoin;
     }
 
@@ -93,5 +95,12 @@ public class CoinCounterScript : MonoBehaviour
         yield return new WaitForSeconds(CoinMultiplierButton.coinMultiplierDuration); // Wait for 5 seconds
         doubleCoin = false; // Reset doubleCoin to false
         Debug.Log("double coin deactivated");
+    }
+
+    private void ResetCoins(GameOverScript events)
+    {
+        Debug.Log("Resetting coins");
+        coinCount = 0;
+        Destroy(gameObject);
     }
 }
