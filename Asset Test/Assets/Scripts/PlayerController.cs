@@ -388,6 +388,7 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 spawnPosition = transform.position + transform.forward * 2f;
         Instantiate(rocketLauncherPrefab, spawnPosition, transform.rotation);
+        rockets -= 1;
         if (rockets == 0) {
             canShoot = false;
         }
