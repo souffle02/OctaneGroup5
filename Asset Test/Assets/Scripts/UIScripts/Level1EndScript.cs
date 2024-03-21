@@ -44,6 +44,7 @@ public class Level1EndScript : MonoBehaviour
         livesText.SetText(livesCount.ToString());
         loreText.SetText(loreCount[currLevel].ToString() + " / 2");
         currLevel++;
+        LevelSelectButtonHandlerScript.currLevel = currLevel;
         Debug.Log("NEW CURRLEVEL: " + currLevel);
     }
 
