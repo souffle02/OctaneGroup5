@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,7 +23,7 @@ public class LevelSelectButtonHandlerScript : MonoBehaviour
     private string blockerName;
 
     private List<int> loreCount;
-    public int currLevel;
+    public static int currLevel;
 
 
     void Start()
@@ -38,7 +39,15 @@ public class LevelSelectButtonHandlerScript : MonoBehaviour
         level2Button.onClick.AddListener(ClickedLevel2);
         level3Button.onClick.AddListener(ClickedLevel3);
 
-        currLevel = Level1EndScript.level1endHandler.currLevel;
+        /* 
+        if(Level2EndScript.level2endHandler == null)
+        {
+            currLevel = Level1EndScript.level1endHandler.currLevel;
+        }
+        else
+        {
+            currLevel = Level2EndScript.level2endHandler.currLevel;
+        } */
         Debug.Log("CURRENT BLOCKED LEVEL: " + currLevel);
         if (currLevel == 2)
         {
