@@ -48,10 +48,10 @@ public class PlayerController : MonoBehaviour
     public CountdownTimer countdownTimer;
     public GameObject rocketLauncherPrefab; // Rocket Launcher
     private bool canShoot = false; // If has rocket launcher powerup
+    private int rockets;  // rockets you get from picking up launcher powerup (they increase with upgrades)
 
     private bool isInvincible = false; // If has invincible powerup
     // private bool coinsDoubled = false; // If has coin multiplier
-    private bool timewarpActive = false; // If has timewarp powerup
     private bool haungsMode = false;
 
     // EVENTS
@@ -347,6 +347,7 @@ public class PlayerController : MonoBehaviour
     public void EnableShooting()
     {
         Debug.Log("Rocket launcher obtained");
+        rockets = RocketLauncherButton.rockets;
         canShoot = true; // Player can now shoot
     }
 
@@ -387,7 +388,9 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 spawnPosition = transform.position + transform.forward * 2f;
         Instantiate(rocketLauncherPrefab, spawnPosition, transform.rotation);
-        canShoot = false;
+        if (rockets == 0) {
+            canShoot = false;
+        }
     }
 
     private void ApplyDriftFriction()
