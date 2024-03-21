@@ -1943,6 +1943,79 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1001 &169528540
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3689505704823990355, guid: 4178f6b1d443baa4a942aeec2eb6ca3c, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.53
+      objectReference: {fileID: 0}
+    - target: {fileID: 3689505704823990355, guid: 4178f6b1d443baa4a942aeec2eb6ca3c, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.53
+      objectReference: {fileID: 0}
+    - target: {fileID: 3689505704823990355, guid: 4178f6b1d443baa4a942aeec2eb6ca3c, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.53
+      objectReference: {fileID: 0}
+    - target: {fileID: 3689505704823990355, guid: 4178f6b1d443baa4a942aeec2eb6ca3c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -104.85659
+      objectReference: {fileID: 0}
+    - target: {fileID: 3689505704823990355, guid: 4178f6b1d443baa4a942aeec2eb6ca3c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.5432549
+      objectReference: {fileID: 0}
+    - target: {fileID: 3689505704823990355, guid: 4178f6b1d443baa4a942aeec2eb6ca3c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -179.66197
+      objectReference: {fileID: 0}
+    - target: {fileID: 3689505704823990355, guid: 4178f6b1d443baa4a942aeec2eb6ca3c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3689505704823990355, guid: 4178f6b1d443baa4a942aeec2eb6ca3c, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3689505704823990355, guid: 4178f6b1d443baa4a942aeec2eb6ca3c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3689505704823990355, guid: 4178f6b1d443baa4a942aeec2eb6ca3c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3689505704823990355, guid: 4178f6b1d443baa4a942aeec2eb6ca3c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3689505704823990355, guid: 4178f6b1d443baa4a942aeec2eb6ca3c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3689505704823990355, guid: 4178f6b1d443baa4a942aeec2eb6ca3c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7926698770105387285, guid: 4178f6b1d443baa4a942aeec2eb6ca3c, type: 3}
+      propertyPath: m_Name
+      value: Invincibility (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8266791636890583843, guid: 4178f6b1d443baa4a942aeec2eb6ca3c, type: 3}
+      propertyPath: sfx
+      value: 
+      objectReference: {fileID: 2114991142}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4178f6b1d443baa4a942aeec2eb6ca3c, type: 3}
 --- !u!1 &181261243
 GameObject:
   m_ObjectHideFlags: 0
@@ -33517,7 +33590,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1797647652
 RectTransform:
   m_ObjectHideFlags: 0
@@ -37337,10 +37410,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timerText: {fileID: 2140690355}
-  multiplierSprite: {fileID: 0}
-  timewarpSprite: {fileID: 0}
-  invincibilitySprite: {fileID: 0}
-  rocketSprite: {fileID: 0}
+  multiplierSprite: {fileID: 21300000, guid: c1ef98fb467e7e549bdb9604868be94e, type: 3}
+  timewarpSprite: {fileID: 21300000, guid: 7809cd45a35ccbc4d868c63fd85413a3, type: 3}
+  invincibilitySprite: {fileID: 21300000, guid: 76a8fe59d99af3f40b135d98625531ee, type: 3}
+  rocketSprite: {fileID: 21300000, guid: 306c3b08771140141bb1d06f36ebd98b, type: 3}
 --- !u!114 &2140690355
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37537,3 +37610,4 @@ SceneRoots:
   - {fileID: 196705802}
   - {fileID: 1432284647}
   - {fileID: 365250353}
+  - {fileID: 169528540}
