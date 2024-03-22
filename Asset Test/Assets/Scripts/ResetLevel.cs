@@ -24,6 +24,7 @@ public class RestartLevel : MonoBehaviour
     void Reset()
     {
         SceneManager.LoadScene("Level " + current_level);
+        CoinCounterScript.coinCount = 0;
         Time.timeScale = 1;
     }
 }
