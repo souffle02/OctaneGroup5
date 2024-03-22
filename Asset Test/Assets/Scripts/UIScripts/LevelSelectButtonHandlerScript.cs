@@ -113,6 +113,11 @@ public class LevelSelectButtonHandlerScript : MonoBehaviour
         Debug.Log("Loading scene: Upgrade Menu");
         SceneManager.LoadScene("Upgrade Menu");
     }
+
+    public void Quit() {
+        Application.Quit();
+    }
+    
     /*private void Start()
     {
         Button selectLevel1 = level1Button.GetComponent<Button>();
